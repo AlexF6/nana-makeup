@@ -1,173 +1,166 @@
 ---
 import { Image } from "astro:assets";
+// Asegúrate de que la ruta sea correcta
 import bread from "../assets/images/bread.webp";
 
 const featuredBig = {
-  badge: "Featured",
-  title: "NANA Essentials",
-  desc: "Punk-goth glam • long-wear • high pigment.",
-  price: "COP 149.900",
+  badge: "Best Seller",
+  title: "NANA Essentials Kit",
+  desc: "La colección definitiva. Acabado punk-goth glam de larga duración y alta pigmentación.",
+  price: "$ 149.900",
   image: bread,
-  meta: "4.9 • Best sellers",
+  meta: "4.9 ★★★★★",
+  tags: ["Cruelty-free", "Waterproof", "High Pigment"]
 };
 
 const featuredSmall = {
-  badge: "Featured",
+  badge: "New Drop",
   title: "Lip Tint SF 4",
-  desc: "Matte finish • comfy wear • bold color.",
-  price: "COP 34.900",
+  desc: "Acabado mate, textura terciopelo y color intenso.",
+  price: "$ 34.900",
   image: bread,
-  meta: "4.8 • New drop",
+  meta: "4.8 ★",
 };
 ---
 
-<section class="relative overflow-hidden py-10 md:py-14 lg:py-16">
-  <div
-    class="pointer-events-none absolute inset-0 opacity-[0.07]"
-    style="
-      background-image: linear-gradient(to right, rgba(244,114,182,.2) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(244,114,182,.2) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 75%);
-    "
-  ></div>
+<section class="relative overflow-hidden py-8 md:py-8 lg:py-8">
+  <!-- FONDO DECORATIVO (Glow & Noise) -->
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <!-- Gradiente sutil rosa/rojo en el fondo -->
+    <div class="absolute -left-[10%] top-0 h-125 w-125 rounded-full bg-pink-500/10 blur-[100px] mix-blend-multiply"></div>
+    <div class="absolute right-0 top-[20%] h-100 w-100 rounded-full bg-rose-500/10 blur-[80px] mix-blend-multiply"></div>
+    <!-- Textura de ruido (Noise) para el toque Punk -->
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E');"></div>
+  </div>
 
-  <div class="relative mx-auto w-[min(1600px,calc(100%-2rem))]">
-    
+  <div class="mx-auto w-full max-w-400">
     <div class="grid gap-6 lg:grid-cols-[1fr_1.1fr] xl:gap-8">
       
-      <div class="flex flex-col gap-6 xl:gap-8">
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="flex flex-col gap-6">
         
+        <!-- Tarjeta de Intro Principal -->
         <div
-          class="animate-entry relative flex flex-1 flex-col justify-center rounded-3xl border border-pink-900/20 bg-white/5 p-6 backdrop-blur-md md:p-10"
+          class="animate-entry relative flex flex-col justify-center overflow-hidden rounded-4xl border border-black/5 bg-white/40 p-6 backdrop-blur-xl md:p-10 lg:min-h-105"
           style="--delay: 100ms"
         >
-          <div class="pointer-events-none absolute -top-20 left-1/2 h-40 w-80 -translate-x-1/2 rounded-full bg-pink-500/15 blur-3xl"></div>
+          <!-- Decoración interna sutil -->
+          <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-linear-to-br from-pink-500 to-rose-500 opacity-10 blur-2xl"></div>
 
-          <div class="relative z-10">
-            <h1 class="text-balance text-4xl font-extrabold leading-[1.1] md:text-5xl lg:text-6xl">
-              <span class="bg-linear-to-r from-pink-300 via-rose-200 to-pink-300 bg-clip-text text-transparent">NANA</span>
-              <span class="text-white"> Beauty</span>
-              <br />
-              <span class="text-2xl font-medium text-gray-400 md:text-3xl">punk-goth essentials.</span>
-            </h1>
+          <h1 class="relative z-10 text-balance text-4xl font-black leading-[1.05] tracking-tight text-zinc-900 md:text-5xl lg:text-6xl">
+            <span class="bg-linear-to-r from-pink-600 via-rose-500 to-pink-600 bg-clip-text text-transparent">NANA</span>
+            <span>Beauty</span>
+            <br />
+            <span class="text-2xl font-medium tracking-normal text-zinc-500 md:text-3xl">punk-goth essentials.</span>
+          </h1>
 
-            <p class="mt-5 max-w-prose text-base leading-relaxed text-gray-300 md:text-lg">
-              Descubre nuestra colección inspirada en el icónico anime. Expresa tu lado más auténtico con
-              productos de alta calidad que capturan la esencia gótica y elegante del estilo punk rock.
-            </p>
+          <p class="relative z-10 mt-6 max-w-prose text-base leading-relaxed text-zinc-600 md:text-lg">
+            Expresa tu lado más auténtico. Productos inspirados en el anime icónico que capturan la esencia rebelde y elegante del estilo punk rock.
+          </p>
 
-            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="/catalog"
-                data-astro-prefetch
-                class="group inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-pink-600 to-rose-500 px-8
-                       text-base font-semibold text-white transition hover:from-pink-700 hover:to-rose-600 hover:shadow-lg hover:shadow-pink-500/20
-                       focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300/40"
-              >
-                Explorar
-                <svg class="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 2l1.2 4.1L17 8l-3.8 1.9L12 14l-1.2-4.1L7 8l3.8-1.9L12 2Z" fill="currentColor" />
-                  <path d="M5 12l.8 2.7L8.5 16l-2.7 1.3L5 20l-.8-2.7L1.5 16l2.7-1.3L5 12Z" fill="currentColor" opacity="0.9" />
-                  <path d="M19 12l.8 2.7L22.5 16l-2.7 1.3L19 20l-.8-2.7L15.5 16l2.7-1.3L19 12Z" fill="currentColor" opacity="0.9" />
-                </svg>
-              </a>
+          <div class="relative z-10 mt-8 flex flex-wrap gap-3">
+            <a
+              href="/catalog"
+              class="group inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-zinc-900 px-8 text-base font-semibold text-white transition-all duration-300 hover:bg-pink-600 hover:shadow-lg hover:shadow-pink-500/25 active:scale-95"
+            >
+              Explorar
+              <!-- Flecha animada -->
+              <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
 
-              <a
-                href="https://wa.me/573116973505"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex h-12 items-center justify-center rounded-xl border border-pink-900/30 bg-black/20 px-8
-                       text-base font-semibold text-gray-200/90 transition hover:bg-white/5 hover:text-white
-                       focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300/40"
-              >
-                WhatsApp
-              </a>
-            </div>
+            <a
+              href="https://wa.me/573116973505"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex h-12 items-center justify-center rounded-xl border border-zinc-200 bg-white px-8 text-base font-semibold text-zinc-800 transition-all hover:border-pink-200 hover:bg-pink-50 hover:text-pink-700 active:scale-95"
+            >
+              WhatsApp
+            </a>
           </div>
         </div>
 
+        <!-- Tarjeta Pequeña de Producto -->
         <a
           href="/catalog"
-          data-astro-prefetch
-          class="animate-entry group relative overflow-hidden rounded-3xl border border-pink-900/20 bg-white/5 p-6 transition-all duration-300
-                 hover:-translate-y-1 hover:border-pink-500/30 hover:bg-white/8 hover:shadow-xl hover:shadow-pink-900/10"
-          style="--delay: 300ms"
+          class="animate-entry group relative overflow-hidden rounded-4xl border border-white/50 bg-white/60 p-2 transition-all duration-300 hover:border-pink-300/50 hover:bg-white hover:shadow-xl hover:shadow-pink-900/5 lg:h-full"
+          style="--delay: 200ms"
         >
-          <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-purple-500/10 blur-2xl transition duration-500 group-hover:bg-purple-500/20"></div>
-
-          <div class="relative flex items-center justify-between">
-            <span class="rounded-full border border-pink-500/20 bg-pink-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-pink-200">
-              {featuredSmall.badge}
-            </span>
-            <span class="text-xs font-medium text-gray-400">{featuredSmall.meta}</span>
-          </div>
-
-          <div class="relative mt-4 grid items-center gap-6 sm:grid-cols-[1fr_auto]">
-            <div>
-              <h3 class="text-xl font-bold text-white group-hover:text-pink-200 transition-colors">{featuredSmall.title}</h3>
-              <p class="mt-2 text-sm text-gray-400 group-hover:text-gray-300">{featuredSmall.desc}</p>
-              
-              <div class="mt-4 flex items-center gap-2">
-                <p class="text-lg font-bold text-gray-100">{featuredSmall.price}</p>
+          <div class="flex h-full flex-col sm:flex-row">
+            <div class="flex flex-1 flex-col justify-between p-5">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="inline-flex items-center rounded-full border border-rose-200 bg-rose-50 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-rose-600">
+                    {featuredSmall.badge}
+                  </span>
+                  <span class="text-xs font-semibold text-zinc-400">{featuredSmall.meta}</span>
+                </div>
+                <h3 class="mt-3 text-xl font-bold text-zinc-900 group-hover:text-pink-600 transition-colors">
+                  {featuredSmall.title}
+                </h3>
+                <p class="mt-1 text-sm text-zinc-500 line-clamp-2">{featuredSmall.desc}</p>
+              </div>
+              <div class="mt-4">
+                <p class="text-lg font-bold text-zinc-900">{featuredSmall.price}</p>
               </div>
             </div>
-
-            <div class="relative">
-              <div class="pointer-events-none absolute inset-0 scale-90 rounded-2xl bg-pink-500/20 blur-xl transition duration-300 group-hover:scale-100 group-hover:bg-pink-500/30"></div>
+            
+            <div class="relative h-full w-full overflow-hidden rounded-3xl sm:h-auto sm:w-110">
               <Image
                 src={featuredSmall.image}
                 alt={featuredSmall.title}
-                class="relative h-24 w-32 rounded-xl object-cover shadow-lg transition duration-500 group-hover:scale-105 sm:h-28 sm:w-36"
+                class="h-full w-full object-cover transition duration-500 group-hover:scale-102"
               />
             </div>
           </div>
         </a>
       </div>
 
+      <!-- COLUMNA DERECHA (Producto Grande) -->
       <a
         href="/catalog"
-        data-astro-prefetch
-        class="animate-entry group relative flex h-full min-h-100 flex-col overflow-hidden rounded-3xl border border-pink-900/20 bg-white/5 p-2 transition-all duration-300
-               hover:-translate-y-1 hover:border-pink-500/30 hover:bg-white/8 hover:shadow-2xl hover:shadow-pink-900/10"
-        style="--delay: 500ms"
+        class="animate-entry group relative flex flex-col overflow-hidden rounded-4xl border border-white/50 bg-white/60 p-2 transition-all duration-300 hover:-translate-y-1 hover:border-pink-300/50 hover:bg-white hover:shadow-2xl hover:shadow-pink-900/10"
+        style="--delay: 300ms"
       >
-        <div class="pointer-events-none absolute top-0 right-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-pink-600/10 blur-[80px] transition duration-700 group-hover:bg-pink-600/15"></div>
-        <div class="pointer-events-none absolute bottom-0 left-0 h-96 w-96 -translate-x-1/3 translate-y-1/3 rounded-full bg-purple-600/10 blur-[80px] transition duration-700 group-hover:bg-purple-600/15"></div>
+        <!-- Imagen con overlay sutil al hover -->
+        <div class="relative aspect-4/3 w-full overflow-hidden rounded-3xl md:aspect-16/10 lg:aspect-auto lg:h-full lg:flex">
+          <Image
+            src={featuredBig.image}
+            alt={featuredBig.title}
+            class="h-full w-full object-cover transition duration-700 ease-in-out group-hover:scale-105"
+            loading="eager"
+            width={800}
+          />
+          <!-- Badge flotante sobre la imagen -->
+          <div class="absolute left-4 top-4">
+             <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-zinc-900 backdrop-blur-sm shadow-sm">
+              {featuredBig.badge}
+            </span>
+          </div>
+        </div>
 
-        <div class="relative h-full w-full overflow-hidden rounded-2xl bg-black/20">
-            <Image
-                src={featuredBig.image}
-                alt={featuredBig.title}
-                class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                loading="eager"
-            />
-            
-            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end md:p-8">
-                <div class="transform transition duration-300 translate-y-2 group-hover:translate-y-0">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
-                            {featuredBig.badge}
-                        </span>
-                        <div class="flex gap-1">
-                             <div class="h-1.5 w-1.5 rounded-full bg-pink-500"></div>
-                             <div class="h-1.5 w-1.5 rounded-full bg-gray-600"></div>
-                        </div>
-                    </div>
-
-                    <h3 class="text-3xl font-extrabold text-white md:text-4xl">{featuredBig.title}</h3>
-                    <p class="mt-2 text-gray-300 line-clamp-2">{featuredBig.desc}</p>
-                    
-                    <div class="mt-4 flex items-center justify-between border-t border-white/10 pt-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:opacity-100">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs text-gray-400">Cruelty-free</span>
-                            <span class="text-xs text-gray-500">•</span>
-                            <span class="text-xs text-gray-400">Long-wear</span>
-                        </div>
-                        <p class="text-xl font-bold text-white">{featuredBig.price}</p>
-                    </div>
-                </div>
+        <div class="flex flex-col gap-4 px-4 pb-4 pt-5 md:px-6 md:pb-6">
+          <div>
+            <div class="flex items-baseline justify-between">
+              <h3 class="text-2xl font-black text-zinc-900 md:text-3xl group-hover:text-pink-600 transition-colors">
+                {featuredBig.title}
+              </h3>
+              <span class="text-xs font-bold text-zinc-400">{featuredBig.meta}</span>
             </div>
+            <p class="mt-2 text-zinc-600">{featuredBig.desc}</p>
+          </div>
+
+          <div class="flex items-end justify-between border-t border-zinc-100 pt-4">
+            <div class="flex flex-wrap gap-x-3 gap-y-1 text-xs font-medium text-zinc-500">
+              {featuredBig.tags.map(tag => (
+                <span class="flex items-center gap-1">
+                  <span class="h-1 w-1 rounded-full bg-pink-400"></span> {tag}
+                </span>
+              ))}
+            </div>
+            <p class="text-2xl font-bold tracking-tight text-zinc-900">{featuredBig.price}</p>
+          </div>
         </div>
       </a>
 
@@ -176,20 +169,25 @@ const featuredSmall = {
 </section>
 
 <style>
+  /* Animación de entrada suave */
   .animate-entry {
     opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     animation-delay: var(--delay, 0ms);
   }
 
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+    from { 
+      opacity: 0; 
+      transform: translateY(20px) scale(0.98); 
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-entry { opacity: 1; animation: none; transform: none; }
   }
 </style>

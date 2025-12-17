@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
 body {
-  background-color: #111;
+  /* background-color: #F0EFE7; */
+  /* background-color: #FFFAFA; */
+  background-color: #f0eded;
+  
+
+
+  /* grid sutil */
+  background-image:
+    linear-gradient(to right, rgba(244,114,182,.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244,114,182,.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-attachment: fixed;
 }
