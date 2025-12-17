@@ -1,0 +1,195 @@
+---
+import { Image } from "astro:assets";
+import bread from "../assets/images/bread.webp";
+
+const featuredBig = {
+  badge: "Featured",
+  title: "NANA Essentials",
+  desc: "Punk-goth glam • long-wear • high pigment.",
+  price: "COP 149.900",
+  image: bread,
+  meta: "4.9 • Best sellers",
+};
+
+const featuredSmall = {
+  badge: "Featured",
+  title: "Lip Tint SF 4",
+  desc: "Matte finish • comfy wear • bold color.",
+  price: "COP 34.900",
+  image: bread,
+  meta: "4.8 • New drop",
+};
+---
+
+<section class="relative overflow-hidden py-10 md:py-14 lg:py-16">
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.07]"
+    style="
+      background-image: linear-gradient(to right, rgba(244,114,182,.2) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(244,114,182,.2) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 75%);
+    "
+  ></div>
+
+  <div class="relative mx-auto w-[min(1600px,calc(100%-2rem))]">
+    
+    <div class="grid gap-6 lg:grid-cols-[1fr_1.1fr] xl:gap-8">
+      
+      <div class="flex flex-col gap-6 xl:gap-8">
+        
+        <div
+          class="animate-entry relative flex flex-1 flex-col justify-center rounded-3xl border border-pink-900/20 bg-white/5 p-6 backdrop-blur-md md:p-10"
+          style="--delay: 100ms"
+        >
+          <div class="pointer-events-none absolute -top-20 left-1/2 h-40 w-80 -translate-x-1/2 rounded-full bg-pink-500/15 blur-3xl"></div>
+
+          <div class="relative z-10">
+            <h1 class="text-balance text-4xl font-extrabold leading-[1.1] md:text-5xl lg:text-6xl">
+              <span class="bg-linear-to-r from-pink-300 via-rose-200 to-pink-300 bg-clip-text text-transparent">NANA</span>
+              <span class="text-white"> Beauty</span>
+              <br />
+              <span class="text-2xl font-medium text-gray-400 md:text-3xl">punk-goth essentials.</span>
+            </h1>
+
+            <p class="mt-5 max-w-prose text-base leading-relaxed text-gray-300 md:text-lg">
+              Descubre nuestra colección inspirada en el icónico anime. Expresa tu lado más auténtico con
+              productos de alta calidad que capturan la esencia gótica y elegante del estilo punk rock.
+            </p>
+
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="/catalog"
+                data-astro-prefetch
+                class="group inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-linear-to-r from-pink-600 to-rose-500 px-8
+                       text-base font-semibold text-white transition hover:from-pink-700 hover:to-rose-600 hover:shadow-lg hover:shadow-pink-500/20
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300/40"
+              >
+                Explorar
+                <svg class="h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2l1.2 4.1L17 8l-3.8 1.9L12 14l-1.2-4.1L7 8l3.8-1.9L12 2Z" fill="currentColor" />
+                  <path d="M5 12l.8 2.7L8.5 16l-2.7 1.3L5 20l-.8-2.7L1.5 16l2.7-1.3L5 12Z" fill="currentColor" opacity="0.9" />
+                  <path d="M19 12l.8 2.7L22.5 16l-2.7 1.3L19 20l-.8-2.7L15.5 16l2.7-1.3L19 12Z" fill="currentColor" opacity="0.9" />
+                </svg>
+              </a>
+
+              <a
+                href="https://wa.me/573116973505"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex h-12 items-center justify-center rounded-xl border border-pink-900/30 bg-black/20 px-8
+                       text-base font-semibold text-gray-200/90 transition hover:bg-white/5 hover:text-white
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-300/40"
+              >
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="/catalog"
+          data-astro-prefetch
+          class="animate-entry group relative overflow-hidden rounded-3xl border border-pink-900/20 bg-white/5 p-6 transition-all duration-300
+                 hover:-translate-y-1 hover:border-pink-500/30 hover:bg-white/8 hover:shadow-xl hover:shadow-pink-900/10"
+          style="--delay: 300ms"
+        >
+          <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-purple-500/10 blur-2xl transition duration-500 group-hover:bg-purple-500/20"></div>
+
+          <div class="relative flex items-center justify-between">
+            <span class="rounded-full border border-pink-500/20 bg-pink-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-pink-200">
+              {featuredSmall.badge}
+            </span>
+            <span class="text-xs font-medium text-gray-400">{featuredSmall.meta}</span>
+          </div>
+
+          <div class="relative mt-4 grid items-center gap-6 sm:grid-cols-[1fr_auto]">
+            <div>
+              <h3 class="text-xl font-bold text-white group-hover:text-pink-200 transition-colors">{featuredSmall.title}</h3>
+              <p class="mt-2 text-sm text-gray-400 group-hover:text-gray-300">{featuredSmall.desc}</p>
+              
+              <div class="mt-4 flex items-center gap-2">
+                <p class="text-lg font-bold text-gray-100">{featuredSmall.price}</p>
+              </div>
+            </div>
+
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-0 scale-90 rounded-2xl bg-pink-500/20 blur-xl transition duration-300 group-hover:scale-100 group-hover:bg-pink-500/30"></div>
+              <Image
+                src={featuredSmall.image}
+                alt={featuredSmall.title}
+                class="relative h-24 w-32 rounded-xl object-cover shadow-lg transition duration-500 group-hover:scale-105 sm:h-28 sm:w-36"
+              />
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <a
+        href="/catalog"
+        data-astro-prefetch
+        class="animate-entry group relative flex h-full min-h-100 flex-col overflow-hidden rounded-3xl border border-pink-900/20 bg-white/5 p-2 transition-all duration-300
+               hover:-translate-y-1 hover:border-pink-500/30 hover:bg-white/8 hover:shadow-2xl hover:shadow-pink-900/10"
+        style="--delay: 500ms"
+      >
+        <div class="pointer-events-none absolute top-0 right-0 h-96 w-96 translate-x-1/3 -translate-y-1/3 rounded-full bg-pink-600/10 blur-[80px] transition duration-700 group-hover:bg-pink-600/15"></div>
+        <div class="pointer-events-none absolute bottom-0 left-0 h-96 w-96 -translate-x-1/3 translate-y-1/3 rounded-full bg-purple-600/10 blur-[80px] transition duration-700 group-hover:bg-purple-600/15"></div>
+
+        <div class="relative h-full w-full overflow-hidden rounded-2xl bg-black/20">
+            <Image
+                src={featuredBig.image}
+                alt={featuredBig.title}
+                class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                loading="eager"
+            />
+            
+            <div class="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end md:p-8">
+                <div class="transform transition duration-300 translate-y-2 group-hover:translate-y-0">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white backdrop-blur-md">
+                            {featuredBig.badge}
+                        </span>
+                        <div class="flex gap-1">
+                             <div class="h-1.5 w-1.5 rounded-full bg-pink-500"></div>
+                             <div class="h-1.5 w-1.5 rounded-full bg-gray-600"></div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-3xl font-extrabold text-white md:text-4xl">{featuredBig.title}</h3>
+                    <p class="mt-2 text-gray-300 line-clamp-2">{featuredBig.desc}</p>
+                    
+                    <div class="mt-4 flex items-center justify-between border-t border-white/10 pt-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:opacity-100">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs text-gray-400">Cruelty-free</span>
+                            <span class="text-xs text-gray-500">•</span>
+                            <span class="text-xs text-gray-400">Long-wear</span>
+                        </div>
+                        <p class="text-xl font-bold text-white">{featuredBig.price}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-entry {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

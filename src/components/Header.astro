@@ -1,0 +1,125 @@
+---
+const path = Astro.url.pathname;
+
+/** @param {string} href */
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+
+const linkClass = (href: string) =>
+  `text-[1.05rem] tracking-wider text-gray-200/85 transition-colors duration-200 hover:text-pink-300 ${
+    isActive(href) ? "text-pink-400" : ""
+  }`;
+
+const iconBtnClass = (href: string) =>
+  `inline-flex items-center gap-2 rounded-xl px-2.5 py-2 text-gray-200/85 transition duration-200
+   hover:bg-pink-500/10 hover:text-pink-300 active:translate-y-[1px] focus:outline-none
+   focus-visible:ring-2 focus-visible:ring-pink-300/40 ${
+     isActive(href) ? "text-pink-400" : ""
+   }`;
+---
+
+<header class="sticky top-0 z-50 backdrop-blur-md" transition:persist>
+  <div class="mx-auto w-[min(1600px,calc(100%-2rem))] py-5">
+    <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+      <a href="/" data-astro-prefetch aria-label="NANA Beauty home" class="inline-flex min-w-max items-center gap-2 no-underline">
+        <svg class="h-8 w-8 text-pink-500 fill-pink-500" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+            fill="currentColor"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+
+        <span class="text-2xl font-extrabold bg-linear-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent max-sm:text-[1.15rem]">
+          NANA Beauty
+        </span>
+      </a>
+
+      <nav class="hidden md:flex itefms-center gap-5 justify-self-center" aria-label="Primary navigation">
+        <a class={linkClass("/catalog")} href="/catalog" data-astro-prefetch>Productos</a>
+        <a class={linkClass("/about")} href="/about" data-astro-prefetch>About Us</a>
+        <a class={linkClass("/faq")} href="/faq" data-astro-prefetch>FAQ</a>
+        <a class={linkClass("/contact")} href="/contact" data-astro-prefetch>Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5 justify-self-end">
+        <a class={iconBtnClass("/liked")} href="/liked" aria-label="Liked items" data-astro-prefetch>
+          <svg class="h-5.5 w-5.5" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+
+        <a class={iconBtnClass("/login")} href="/login" aria-label="Login" data-astro-prefetch>
+          <svg class="h-5.5 w-5.5" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M20 21a8 8 0 0 0-16 0"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+            <circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+          </svg>
+        </a>
+
+        <details class="relative md:hidden">
+          <summary class={iconBtnClass("/")} aria-label="Open menu">
+            <svg class="h-5.5 w-5.5" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M4 6h16M4 12h16M4 18h16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </summary>
+
+          <div
+            class="absolute right-0 top-[calc(100%+10px)] w-[min(260px,85vw)] rounded-2xl border border-pink-900/25
+                   bg-black/90 p-2 shadow-[0_18px_60px_rgba(0,0,0,0.5)]"
+            role="menu"
+          >
+            <a class="block rounded-xl px-3 py-2.5 text-gray-200/90 transition hover:bg-pink-500/10 hover:text-pink-300"
+               href="/catalog" data-astro-prefetch role="menuitem">Productos</a>
+            <a class="block rounded-xl px-3 py-2.5 text-gray-200/90 transition hover:bg-pink-500/10 hover:text-pink-300"
+               href="/about" data-astro-prefetch role="menuitem">About Us</a>
+            <a class="block rounded-xl px-3 py-2.5 text-gray-200/90 transition hover:bg-pink-500/10 hover:text-pink-300"
+               href="/faq" data-astro-prefetch role="menuitem">FAQ</a>
+            <a class="block rounded-xl px-3 py-2.5 text-gray-200/90 transition hover:bg-pink-500/10 hover:text-pink-300"
+               href="/contact" data-astro-prefetch role="menuitem">Contact</a>
+            <a
+              class="block rounded-xl px-3 py-2.5 text-gray-200/90 transition hover:bg-pink-500/10 hover:text-pink-300"
+              href="https://wa.me/573116973505"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="menuitem"
+            >
+              WhatsApp
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    details > summary { list-style: none; cursor: pointer; }
+    details > summary::-webkit-details-marker { display: none; }
+    details[open]::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:transparent;
+    }
+  </style>
+</header>
