@@ -5,20 +5,22 @@ const path = Astro.url.pathname;
 const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 
 const linkClass = (href: string) =>
-  `text-[1.05rem] tracking-wider text-zinc-700 transition-colors duration-200 hover:text-pink-600 ${
-    isActive(href) ? "text-pink-600" : ""
-  }`;
+  `relative text-[1.05rem] tracking-wider text-zinc-300 transition-colors duration-200 hover:text-pink-200
+   after:absolute after:left-0 after:-bottom-2 after:h-[2px] after:w-full after:origin-left after:scale-x-0
+   after:rounded-full after:bg-pink-300 after:transition-transform after:duration-200
+   hover:after:scale-x-100
+   ${isActive(href) ? "text-pink-200 after:scale-x-100" : ""}`;
 
 const iconBtnClass = (href: string) =>
-  `inline-flex items-center gap-2 rounded-xl px-2.5 py-2 text-zinc-700 transition duration-200
-   hover:bg-pink-500/10 hover:text-pink-700 active:translate-y-[1px] focus:outline-none
+  `inline-flex items-center gap-2 rounded-xl px-2.5 py-2 text-zinc-300 transition duration-200
+   hover:bg-pink-500/10 hover:text-pink-200 active:translate-y-[1px] focus:outline-none
    focus-visible:ring-2 focus-visible:ring-pink-500/30 ${
-     isActive(href) ? "text-pink-700" : ""
+     isActive(href) ? "text-pink-200" : ""
    }`;
 ---
 
 <header
-  class="sticky top-0 z-50 bg-[#F0EFE7] backdrop-blur-md"
+  class="sticky top-0 z-50 bg-zinc-950/60 backdrop-blur-md"
   transition:persist
 >
   <div class="mx-auto w-[min(1600px,calc(100%-2rem))] py-4">
@@ -93,20 +95,21 @@ const iconBtnClass = (href: string) =>
           </summary>
 
           <div
-            class="absolute right-0 top-[calc(100%+10px)] w-[min(260px,85vw)] rounded-2xl border border-black/10
-                   bg-white/95 p-2 shadow-[0_18px_60px_rgba(0,0,0,0.12)]"
+            class="absolute right-0 top-[calc(100%+10px)] w-[min(260px,85vw)] rounded-2xl
+                  border border-white/10 bg-zinc-950/90 p-2 backdrop-blur-xl
+                  shadow-[0_18px_60px_rgba(0,0,0,0.55)]"
             role="menu"
           >
-            <a class="block rounded-xl px-3 py-2.5 text-zinc-700 transition hover:bg-pink-500/10 hover:text-pink-700"
-               href="/catalog" data-astro-prefetch role="menuitem">Productos</a>
-            <a class="block rounded-xl px-3 py-2.5 text-zinc-700 transition hover:bg-pink-500/10 hover:text-pink-700"
-               href="/about" data-astro-prefetch role="menuitem">About Us</a>
-            <a class="block rounded-xl px-3 py-2.5 text-zinc-700 transition hover:bg-pink-500/10 hover:text-pink-700"
-               href="/faq" data-astro-prefetch role="menuitem">FAQ</a>
-            <a class="block rounded-xl px-3 py-2.5 text-zinc-700 transition hover:bg-pink-500/10 hover:text-pink-700"
-               href="/contact" data-astro-prefetch role="menuitem">Contact</a>
+            <a class="block rounded-xl px-3 py-2.5 text-zinc-200 transition hover:bg-pink-500/10 hover:text-pink-200"
+              href="/catalog" data-astro-prefetch role="menuitem">Productos</a>
+            <a class="block rounded-xl px-3 py-2.5 text-zinc-200 transition hover:bg-pink-500/10 hover:text-pink-200"
+              href="/about" data-astro-prefetch role="menuitem">About Us</a>
+            <a class="block rounded-xl px-3 py-2.5 text-zinc-200 transition hover:bg-pink-500/10 hover:text-pink-200"
+              href="/faq" data-astro-prefetch role="menuitem">FAQ</a>
+            <a class="block rounded-xl px-3 py-2.5 text-zinc-200 transition hover:bg-pink-500/10 hover:text-pink-200"
+              href="/contact" data-astro-prefetch role="menuitem">Contact</a>
             <a
-              class="block rounded-xl px-3 py-2.5 text-zinc-700 transition hover:bg-pink-500/10 hover:text-pink-700"
+              class="block rounded-xl px-3 py-2.5 text-zinc-200 transition hover:bg-pink-500/10 hover:text-pink-200"
               href="https://wa.me/573116973505"
               target="_blank"
               rel="noopener noreferrer"

@@ -3,14 +3,14 @@
 body {
   /* background-color: #F0EFE7; */
   /* background-color: #FFFAFA; */
-  background-color: #f0eded;
-  
+  background-color:#111;
+  color:#e4e4e7;
 
-
-  /* grid sutil */
+  /* grid sutil
   background-image:
-    linear-gradient(to right, rgba(244,114,182,.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(244,114,182,.08) 1px, transparent 1px);
-  background-size: 48px 48px;
-  background-attachment: fixed;
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  background-position: -1px -1px; */
+
 }
