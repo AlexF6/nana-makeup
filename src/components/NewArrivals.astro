@@ -1,182 +1,186 @@
 ---
 import { Image } from "astro:assets";
-// Ajusta la ruta si es necesario
 import bread from "../assets/images/bread.webp";
 
 const products = [
-  {
-    id: 1,
-    name: "Ida Lace Up Tall Boot",
-    price: "£490",
-    image: bread,
-    colors: [
-      { hex: "#F2F0EA", selected: false },
-      { hex: "#18181b", selected: true },
-    ],
-  },
-  {
-    id: 2,
-    name: "Jacqueline Pull On Boot",
-    price: "£460",
-    image: bread,
-    colors: [
-      { hex: "#e11d48", selected: true }, // rose-600
-      { hex: "#000000", selected: false },
-    ],
-  },
-  {
-    id: 3,
-    name: "Isolde Ballet Sneaker",
-    price: "£270",
-    image: bread,
-    colors: [
-      { hex: "#000000", selected: true },
-      { hex: "#F2F0EA", selected: false },
-      { hex: "#4B5563", selected: false },
-    ],
-  },
+  { id: 1, name: "Bota Alta Ida Lace Up", price: "$ 149.900", image: bread, category: "Calzado", colors: ["#F2F0EA", "#18181b"] },
+  { id: 2, name: "Jacqueline Pull On", price: "$ 149.900", image: bread, category: "Más Vendido", colors: ["#e11d48", "#000000"] },
+  { id: 3, name: "Ballet Sneaker Isolde", price: "$ 149.900", image: bread, category: "Novedad", colors: ["#000000", "#F2F0EA", "#4B5563"] },
 ];
 ---
 
-<section class="relative py-16 md:py-24 bg-zinc-950 overflow-hidden">
-  
-  <!-- Textura de fondo (Grid sutil) -->
-  <div
-    class="pointer-events-none absolute inset-0 opacity-[0.15]"
-    style="
-      background-image: linear-gradient(to right, rgba(236, 72, 153, 0.1) 1px, transparent 1px),
-                        linear-gradient(to bottom, rgba(236, 72, 153, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 80%);
-    "
-  ></div>
+<section class="relative min-h-screen bg-zinc-950 py-20 md:py-24 text-zinc-100 selection:bg-pink-500/30 overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 opacity-[0.03] mix-blend-overlay"
+       style="background-image:url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+  <div class="pointer-events-none absolute top-25 left-1/2 -translate-x-1/2 w-50 h-50 bg-pink-600/20 blur-[120px] rounded-full"></div>
 
-  <!-- Contenedor Principal -->
-  <div class="relative mx-auto w-full max-w-400">
-    
-    <!-- Header de la Sección -->
-    <div class="mb-12 flex flex-col items-center text-center md:mb-16">
-      <h2 class="text-3xl font-black tracking-tight text-white md:text-5xl">
-        New Arrivals
+  <div class="relative mx-auto w-[min(1500px,calc(100%-2rem))]">
+    <div class="mb-14 md:mb-20 flex flex-col items-center text-center">
+      <span class="font-mono text-xs uppercase tracking-[0.3em] text-pink-400/90 mb-4">/// Temporada 01</span>
+      <h2 class="font-cinzel text-5xl md:text-7xl lg:text-8xl tracking-tighter text-zinc-300 mb-5">
+        NOVEDADES 
+        <!-- <span class="font-cinzel italic text-zinc-300">INGRESOS</span> -->
       </h2>
-
-      <p class="mt-4 max-w-lg text-base text-zinc-400">
-        Lo nuevo, lo más limpio, lo más <span class="text-zinc-200 font-bold">NANA</span>.
-        Piezas seleccionadas para definir tu estilo esta temporada.
+      <p class="max-w-xl text-sm md:text-base text-zinc-400 leading-relaxed">
+        Lanzamientos exclusivos con pigmentos intensos y siluetas limpias. Toca una tarjeta para ver detalles
       </p>
-
-      <a
-        href="/shop"
-        class="mt-8 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-pink-500/30 hover:bg-pink-500/10 hover:text-pink-200 hover:scale-105 active:scale-95"
-      >
-        Ver todo el catálogo
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
+      <div class="mt-8 h-14 w-px bg-linear-to-b from-pink-500/80 to-transparent"></div>
     </div>
 
-    <!-- Product Grid -->
-    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
       {products.map((product, idx) => (
-        <article
-          class="animate-entry group flex flex-col rounded-[2rem] border border-white/10 bg-zinc-900/20 p-4 transition-all duration-500 hover:-translate-y-2 hover:border-pink-500/30 hover:bg-zinc-900/40 hover:shadow-2xl hover:shadow-pink-900/10"
-          style={`--delay: ${100 + idx * 100}ms`}
-        >
-          <!-- Image Container -->
-          <a
-            href={`/product/${product.id}`}
-            class="relative block overflow-hidden rounded-[1.5rem] bg-zinc-800/30"
-          >
-            <!-- Aspect Ratio estándar y padding reducido para que el producto luzca más grande -->
-            <div class="aspect-[4/5] w-full">
-              <Image
-                src={product.image}
-                alt={product.name}
-                class="h-full w-full object-cover object-center p-6 transition duration-700 ease-in-out group-hover:scale-110"
-                width={600}
-                height={750}
-                loading="lazy"
-              />
-            </div>
+        <article class="group relative reveal" style={`--d:${idx * 90}ms`}>
+          <div class="rounded-4xl p-px bg-linear-to-b from-white/12 via-white/6 to-transparent
+                      transition-transform duration-500 hover:-translate-y-1">
+            <div class="rounded-[1.95rem] bg-zinc-950/50 border border-white/10
+                        shadow-[0_18px_70px_rgba(0,0,0,0.45)]">
 
-            <!-- Soft glow en hover -->
-            <div
-              class="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100"
-              style="background: radial-gradient(circle at center, rgba(236, 72, 153, 0.15) 0%, transparent 70%);"
-            ></div>
+              <a
+                href={`/product/${product.id}`}
+                class="relative block overflow-hidden rounded-[1.85rem] bg-zinc-900/40 aspect-4/5
+                        focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40"
+              >
+                <div class="absolute left-0 top-0 z-10 w-full p-5 flex items-start justify-between">
+                  <span class="font-mono text-[10px] uppercase tracking-[0.22em]
+                               rounded-full border border-white/10 bg-black/40 px-3 py-1 text-zinc-200 backdrop-blur">
+                    {product.category}
+                  </span>
 
-            <!-- Ring sutil -->
-            <div class="pointer-events-none absolute inset-0 rounded-[1.5rem] ring-1 ring-inset ring-white/5 group-hover:ring-white/10 transition-colors"></div>
-            
-            <!-- Badge flotante (opcional) -->
-            {idx === 0 && (
-              <div class="absolute top-3 left-3">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-pink-500 text-white shadow-lg shadow-pink-500/20">
-                  HOT
-                </span>
-              </div>
-            )}
-          </a>
+                  <div class="flex items-center gap-1.5">
+                    {product.colors.map((hex) => (
+                      <span
+                        class="h-2.5 w-2.5 rounded-full border border-white/25"
+                        style={`background-color:${hex}`}
+                        aria-hidden="true"
+                      ></span>
+                    ))}
+                  </div>
+                </div>
 
-          <!-- Product Details -->
-          <div class="mt-6 flex flex-1 flex-col justify-between px-2">
-            <div>
-              <h3 class="text-center text-lg font-bold tracking-tight text-white transition-colors group-hover:text-pink-300">
-                <a href={`/product/${product.id}`}>
-                  {product.name}
-                </a>
-              </h3>
-              
-              <!-- Color Swatches -->
-              <div class="mt-3 flex justify-center gap-2">
-                {product.colors.map((color) => (
+                <div class="h-full w-full p-7 md:p-8 flex items-center justify-center
+                            transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]
+                            group-hover:scale-[1.03]">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    class="max-h-full w-auto object-contain drop-shadow-2xl"
+                    width={600}
+                    height={750}
+                    loading="lazy"
+                  />
+                </div>
+
+                <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                     style="background: radial-gradient(circle at 50% 120%, rgba(236,72,153,.18) 0%, rgba(0,0,0,.10) 55%, rgba(0,0,0,.35) 100%);"></div>
+
+                <div class="absolute inset-x-0 bottom-0 p-4">
                   <button
                     type="button"
-                    aria-label={`Select color ${color.hex}`}
-                    class:list={[
-                      "h-4 w-4 rounded-full border border-white/10 transition-all duration-300",
-                      color.selected
-                        ? "ring-2 ring-pink-500 ring-offset-2 ring-offset-zinc-950 scale-110"
-                        : "hover:scale-110 hover:border-white/50 opacity-80 hover:opacity-100",
-                    ]}
-                    style={`background-color: ${color.hex};`}
-                  />
-                ))}
-              </div>
-            </div>
+                    class="w-full rounded-xl bg-white/90 backdrop-blur-md py-3.5 text-sm font-extrabold uppercase tracking-widest text-black
+                           shadow-lg transition-colors duration-200
+                           hover:bg-pink-500 hover:text-white
+                           focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/50
+                           md:translate-y-2.5 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100"
+                    aria-label={`Añadir rápido ${product.name}`}
+                  >
+                    Compra Rápida +
+                  </button>
+                </div>
+              </a>
 
-            <div class="mt-4 text-center">
-              <p class="text-lg font-medium text-zinc-200">
-                {product.price}
-              </p>
+              <div class="px-6 pb-6 pt-5">
+                <div class="flex items-start justify-between gap-4 border-t border-white/10 pt-4 transition-colors group-hover:border-pink-500/35">
+                  <div class="min-w-0">
+                    <h3 class="font-serif text-2xl text-zinc-100 transition-colors group-hover:text-pink-300">
+                      <a href={`/product/${product.id}`} class="outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 rounded">
+                        {product.name}
+                      </a>
+                    </h3>
+                  </div>
+
+                  <span class="shrink-0 font-mono text-lg font-semibold text-zinc-100 transition-colors group-hover:text-pink-200">
+                    {product.price}
+                  </span>
+                </div>
+
+                <div class="mt-4 flex items-center justify-between">
+                  <a
+                    href={`/product/${product.id}`}
+                    class="text-xs font-mono uppercase tracking-[0.22em] text-zinc-400 hover:text-pink-200 transition-colors"
+                  >
+                    Ver detalles →
+                  </a>
+
+                  <button
+                    type="button"
+                    class="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px]
+                           font-bold uppercase tracking-[0.22em] text-zinc-200
+                           hover:border-pink-500/30 hover:bg-pink-500/10 hover:text-pink-200 transition"
+                    aria-label={`Guardar ${product.name}`}
+                  >
+                    Guardar
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
         </article>
       ))}
     </div>
+
+    <div class="mt-20 text-center">
+      <a href="/catalog" class="relative inline-block group">
+        <span class="font-mono text-sm uppercase tracking-[0.2em] text-zinc-400 group-hover:text-white transition-colors">
+          Ver Colección Completa
+        </span>
+        <span class="absolute left-0 -bottom-2 h-px w-full bg-linear-to-r from-pink-500 to-rose-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+      </a>
+    </div>
   </div>
 </section>
 
+<script is:inline>
+  const revealAll = () => {
+    const items = document.querySelectorAll(".reveal");
+    if (!items.length) return;
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+
+    items.forEach((el) => io.observe(el));
+  };
+
+  revealAll();
+  document.addEventListener("astro:page-load", revealAll);
+</script>
+
 <style>
-  .animate-entry {
+  .reveal {
     opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: var(--delay, 0ms);
+    transform: translateY(18px) scale(0.985);
+    filter: blur(6px);
+    transition:
+      opacity 700ms cubic-bezier(.16,1,.3,1),
+      transform 700ms cubic-bezier(.16,1,.3,1),
+      filter 700ms cubic-bezier(.16,1,.3,1);
+    transition-delay: var(--d, 0ms);
+    will-change: opacity, transform, filter;
   }
 
-  @keyframes fadeInUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(30px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0); 
-    }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-entry { opacity: 1; animation: none; transform: none; }
+    .reveal { opacity: 1; transform: none; filter: none; transition: none; }
   }
 </style>

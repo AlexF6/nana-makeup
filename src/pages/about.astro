@@ -1,0 +1,126 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const stats = [
+  { label: "FÓRMULAS_PROBADAS", value: "120+" },
+  { label: "CALIFICACIÓN_PROM", value: "4.8" },
+  { label: "FRECUENCIA_DROP", value: "Mensual" },
+];
+
+const values = [
+  {
+    title: "GÓTICO_USEABLE",
+    desc: "Color de alto impacto. Formas limpias. Detalles definidos. El puente entre lo underground y la vanidad.",
+  },
+  {
+    title: "INGENIERÍA_DE_CONFORT",
+    desc: "Larga duración sin pesadez. Texturas que se sienten como piel, no como pintura.",
+  },
+  {
+    title: "LANZAMIENTOS_DE_ARCHIVO",
+    desc: "Cápsulas limitadas diseñadas para ser coleccionadas. Una vez que se van, se vuelven historia.",
+  },
+];
+
+const faqs = [
+  { q: "01. Estado Vegano/Cruelty Free", a: "Estrictamente libre de crueldad. Predominantemente vegano. Revisa las especificaciones de cada producto." },
+  { q: "02. Política de Restock", a: "Honramos el drop. Los restocks son raros y dependen de la demanda." },
+  { q: "03. Envío Global", a: "En expansión actualmente. Revisa la elegibilidad de tu zona en el checkout." },
+];
+---
+
+<BaseLayout title="Concepto | NANA Beauty">
+  <section class="min-h-screen bg-zinc-950 text-zinc-200">
+    <div class="mx-auto w-full lg:grid lg:grid-cols-[9fr_11fr]">
+    
+      <div class="relative flex h-[50vh] flex-col justify-between border-b border-white/10 bg-zinc-950 p-8 lg:sticky lg:top-20 lg:h-[90vh] lg:border-b-0 lg:border-r">
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden opacity-20">
+          <span class="rotate-90 whitespace-nowrap text-[20vh] font-black text-transparent" 
+                style="-webkit-text-stroke: 2px #ec4899;">
+            NANA
+          </span>
+        </div>
+
+        <div class="relative z-10">
+          <p class="font-mono text-xs text-pink-500 tracking-widest uppercase mb-4">
+            /// Est. 2025 — Colombia
+          </p>
+          <h1 class="font-serif text-6xl lg:text-8xl tracking-tighter leading-[0.85] text-white">
+            PUNK <br/>
+            <span class="italic text-zinc-500">GLAM</span> <br/>
+            SOUL
+          </h1>
+        </div>
+
+        <div class="relative z-10 hidden lg:block">
+          <p class="max-w-xs text-sm text-zinc-400 leading-relaxed font-mono">
+            [Estado del sistema: Online]<br>
+            Diseñamos para la energía de protagonista en la vida cotidiana.
+          </p>
+          
+          <div class="mt-8 flex gap-4">
+            <a href="/catalog" class="px-4 rounded-full border border-pink-500/30 py-2 text-sm text-pink-400 hover:bg-pink-500 hover:text-white/80 transition-all duration-300">
+              Ver Catálogo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative bg-zinc-900/20">
+        
+        <div class="border-b border-white/10 p-8 lg:p-16">
+          <p class="text-xl md:text-2xl font-light leading-relaxed text-zinc-300">
+            <span class="text-pink-500 font-bold">NANA Beauty</span> es una carta de amor al contraste. 
+            Suave vs Afilado. Romántico vs Rebelde. Creamos productos que se sienten premium, 
+            se ven audaces y permanecen cómodos de 9AM a 4AM.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-3 divide-x divide-white/10 border-b border-white/10">
+          {stats.map((s) => (
+            <div class="group p-6 text-center hover:bg-pink-950/20 transition-colors duration-500 cursor-default">
+              <div class="text-xs font-mono uppercase tracking-widest opacity-60 mb-2">{s.label}</div>
+              <div class="text-2xl lg:text-3xl font-bold font-serif group-hover:scale-110 transition-transform">{s.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div class="flex flex-col">
+          {values.map((v, i) => (
+            <div class="group relative border-b border-white/10 p-8 lg:p-12 transition-all duration-500 hover:bg-pink-950/20">
+              <span class="absolute right-4 top-4 font-serif text-6xl text-white/5 group-hover:text-pink-500/20 transition-colors">
+                0{i + 1}
+              </span>
+              
+              <h3 class="relative z-10 font-mono text-lg text-pink-400 mb-3 uppercase tracking-widest">
+                {v.title}
+              </h3>
+              <p class="relative z-10 max-w-md text-zinc-300 group-hover:text-white transition-colors text-lg">
+                {v.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div class="bg-zinc-950 p-8 lg:p-16">
+          <h2 class="font-serif text-3xl mb-8 text-white italic">Información Común</h2>
+          <div class="space-y-6">
+            {faqs.map((f) => (
+              <div class="pl-4 border-l-2 border-zinc-800 hover:border-pink-500 transition-colors duration-300">
+                <h4 class="text-zinc-200 font-bold text-lg mb-1">{f.q}</h4>
+                <p class="text-zinc-500 text-sm leading-relaxed">{f.a}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div class="mt-12 lg:hidden">
+            <a href="/catalog" class="block w-full rounded bg-pink-600 py-4 text-center font-bold text-white uppercase tracking-widest">
+              Explorar Productos
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

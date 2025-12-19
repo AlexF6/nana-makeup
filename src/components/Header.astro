@@ -18,12 +18,29 @@ const iconBtnClass = (href: string) =>
      isActive(href) ? "text-pink-200" : ""
    }`;
 ---
+<script is:inline>
+  const applyActive = () => {
+    const path = window.location.pathname;
+
+    document.querySelectorAll('a[data-nav-link]').forEach((a) => {
+      const href = a.getAttribute('href') || '/';
+      const isActive = href === '/' ? path === '/' : path.startsWith(href);
+
+      a.classList.toggle('text-pink-200', isActive);
+      a.classList.toggle('after:scale-x-100', isActive);
+    });
+  };
+
+  applyActive();
+  document.addEventListener('astro:page-load', applyActive);
+</script>
+
 
 <header
-  class="sticky top-0 z-50 bg-zinc-950/50 backdrop-blur-md"
+  class="sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md"
   transition:persist
 >
-  <div class="mx-auto w-[min(1600px,calc(100%-2rem))] py-4">
+  <div class="mx-auto w-[min(1800px,calc(100%-2rem))] py-4">
     <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
       <a
         href="/"
@@ -47,11 +64,12 @@ const iconBtnClass = (href: string) =>
         </span>
       </a>
 
-      <nav class="hidden md:flex items-center gap-6 justify-self-center" aria-label="Primary navigation">
-        <a class={linkClass("/catalog")} href="/catalog" data-astro-prefetch>Productos</a>
-        <a class={linkClass("/about")} href="/about" data-astro-prefetch>About Us</a>
-        <a class={linkClass("/faq")} href="/faq" data-astro-prefetch>FAQ</a>
-        <a class={linkClass("/contact")} href="/contact" data-astro-prefetch>Contact</a>
+      <nav class="hidden md:flex items-center gap-8 justify-self-center" aria-label="Primary navigation">
+        <a data-nav-link href="/" class={linkClass("/")}>Home</a>
+        <a data-nav-link href="/catalog" class={linkClass("/catalog")}>Productos</a>
+        <a data-nav-link href="/about" class={linkClass("/about")}>Sobre Nosotros</a>
+        <a data-nav-link href="/faq" class={linkClass("/faq")}>FAQ</a>
+        <a data-nav-link href="/contact" class={linkClass("/contact")}>Contact</a>
       </nav>
 
       <div class="flex items-center gap-2.5 justify-self-end">
