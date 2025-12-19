@@ -130,14 +130,15 @@ const featuredSmall = {
         style="--delay: 300ms"
       >
         <!-- Contenedor de imagen que se expande para llenar el espacio vertical -->
-        <div class="relative w-full overflow-hidden rounded-3xl flex-1 min-h-75">
+        <div class="relative w-full overflow-hidden rounded-3xl flex-1 max-h-150">
+
           <Image
             src={featuredBig.image}
             alt={featuredBig.title}
             class="h-full w-full object-cover transition duration-700 ease-in-out group-hover:scale-105"
             loading="eager"
             width={800}
-            height={800}
+            height={1000}
           />
           <!-- Degradado para legibilidad -->
           <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/80 via-transparent to-transparent"></div>

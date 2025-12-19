@@ -1,8 +1,25 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/Inter_18pt-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("/fonts/Inter_18pt-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   /* background-color: #F0EFE7; */
   /* background-color: #FFFAFA; */
+  font-family: "Lato", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background-color:#111;
   color:#e4e4e7;
 
