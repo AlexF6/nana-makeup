@@ -1,0 +1,381 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const SUBJECTS = [
+  { key: "PEDIDO", desc: "Soporte de compra, envíos, cambios." },
+  { key: "PRENSA", desc: "Medios, PR, entrevistas." },
+  { key: "COLLAB", desc: "Colaboraciones creativas." },
+  { key: "WHOLESALE", desc: "Distribución y tiendas." },
+];
+
+const MAX_CHARS = 1200;
+
+// UI scale helpers (para que no se vea apretado)
+const legendClass = "text-[12px] md:text-[13px] font-mono uppercase tracking-widest text-zinc-400";
+const labelClass = "block text-[12px] md:text-[13px] font-mono uppercase tracking-widest text-zinc-400";
+const helpClass = "mt-2.5 text-sm text-zinc-400 leading-relaxed";
+const errClass = "mt-2.5 text-sm text-pink-300 hidden leading-relaxed";
+const inputBase =
+  "w-full rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-3.5 md:py-4 " +
+  "text-base text-white placeholder:text-zinc-600 " +
+  "focus:outline-none focus:ring-2 focus:ring-pink-500/35 focus:border-pink-500/30 " +
+  "hover:bg-white/[0.04] transition";
+const inputMono = inputBase.replace("text-base", "font-mono text-base");
+const textareaClass =
+  "mt-3 w-full rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-4 " +
+  "text-base text-zinc-200 placeholder:text-zinc-600 " +
+  "focus:outline-none focus:ring-2 focus:ring-pink-500/35 focus:border-pink-500/30 " +
+  "hover:bg-white/[0.04] transition resize-none leading-relaxed";
+---
+
+<BaseLayout title="Contacto | Log">
+  <section class="pt-24 relative min-h-screen bg-zinc-950 text-zinc-200 selection:bg-pink-500 selection:text-white overflow-x-hidden">
+    {/* ART BACKGROUND */}
+
+    <div class="relative z-10 mx-auto w-full max-w-3xl px-6 py-8">
+      {/* HERO */}
+      <header class="mb-12 md:mb-24">
+
+        <h1 class=" font-serif text-5xl md:text-7xl text-white tracking-tight">
+          Hablemos.
+          <span class="block italic text-zinc-500">Con calma, con intención.</span>
+        </h1>
+
+        <p class="mt-4 max-w-2xl text-base text-zinc-400 leading-relaxed">
+          Envíanos tu mensaje y elige el motivo. Te responderemos al correo que dejes aquí.
+          <span class="text-zinc-500"> (Nada de spam, solo conversación.)</span>
+        </p>
+      </header>
+
+      <div class="grid gap-10 lg:grid-cols-[1.4fr_0.9fr] items-start">
+        {/* FORM CARD */}
+        <div class="rounded-3xl border border-white/10 bg-white/3 backdrop-blur-xl shadow-[0_18px_80px_-45px_rgba(0,0,0,0.95)] overflow-hidden">
+          <div class="flex items-center justify-between gap-3 px-5 py-4 border-b border-white/10 bg-zinc-950/30">
+            <div class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-zinc-400">
+              Message composer
+            </div>
+            <div id="js-form-status" class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-zinc-500" aria-live="polite">
+              Ready
+            </div>
+          </div>
+
+          <form id="js-contact-form" class="p-6 md:p-8" data-state="idle" novalidate>
+            {/* SUBJECT CHIPS */}
+            <fieldset class="mb-8" aria-describedby="err-subject">
+              <legend class={legendClass}>01 — Motivo</legend>
+
+              <div class="mt-4 grid gap-3">
+                {SUBJECTS.map((s, i) => {
+                  const id = `subject-${s.key.toLowerCase()}`;
+                  return (
+                    <label
+                      for={id}
+                      class="group flex items-start justify-between gap-4 rounded-2xl border border-white/10 bg-white/0 px-5 py-4
+                             hover:bg-white/5 transition
+                             focus-within:ring-2 focus-within:ring-pink-500/30"
+                    >
+                      <div class="min-w-0">
+                        <div class="flex items-center gap-3">
+                          <input
+                            id={id}
+                            type="radio"
+                            name="subject"
+                            value={s.key}
+                            class="peer sr-only"
+                            required
+                            checked={i === 0}
+                          />
+                          <span
+                            class="mt-0.5 h-3 w-3 rounded-full border border-white/20
+                                   bg-white/0
+                                   group-hover:border-pink-400/60
+                                   peer-checked:bg-pink-400 peer-checked:border-pink-400 transition"
+                            aria-hidden="true"
+                          ></span>
+
+                          <span class="font-mono text-sm uppercase tracking-wider text-zinc-100">
+                            {s.key}
+                          </span>
+                        </div>
+
+                        <p class="mt-2 text-sm text-zinc-400 leading-relaxed">
+                          {s.desc}
+                        </p>
+                      </div>
+
+                      <span class="text-zinc-600 text-base group-hover:text-zinc-300 transition" aria-hidden="true">
+                        ↗
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+
+              {/* error */}
+              <p id="err-subject" class={errClass} aria-live="polite"></p>
+            </fieldset>
+
+            {/* FIELDS */}
+            <div class="grid gap-6 md:gap-7">
+              <div>
+                <label for="name" class={labelClass}>02 — Nombre</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  aria-describedby="help-name err-name"
+                  placeholder="Tu nombre"
+                  class={"mt-3 " + inputBase}
+                />
+                <p id="help-name" class={helpClass}>Como te gustaría que te llamemos.</p>
+                <p id="err-name" class={errClass} aria-live="polite"></p>
+              </div>
+
+              <div>
+                <label for="email" class={labelClass}>03 — Email</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  inputmode="email"
+                  aria-describedby="help-email err-email"
+                  placeholder="tu@email.com"
+                  class={"mt-3 " + inputMono}
+                />
+                <p id="help-email" class={helpClass}>Te responderemos aquí.</p>
+                <p id="err-email" class={errClass} aria-live="polite"></p>
+              </div>
+
+              <div>
+                <div class="flex items-end justify-between gap-3">
+                  <label for="message" class={labelClass}>04 — Mensaje</label>
+                  <span id="js-charcount" class="text-[11px] md:text-xs font-mono text-zinc-500 tabular-nums">
+                    0/{MAX_CHARS}
+                  </span>
+                </div>
+
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  maxlength={MAX_CHARS}
+                  aria-describedby="help-message err-message"
+                  placeholder="Cuéntanos qué necesitas y cómo podemos ayudarte…"
+                  class={textareaClass}
+                ></textarea>
+
+                <p id="help-message" class={helpClass}>Tip: si es un pedido, agrega el número de orden.</p>
+                <p id="err-message" class={errClass} aria-live="polite"></p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div class="mt-8">
+              <button
+                id="js-submit"
+                type="submit"
+                class="group relative w-full overflow-hidden rounded-2xl border border-white/10
+                       bg-white text-zinc-950 h-16
+                       hover:shadow-[0_20px_60px_-25px_rgba(236,72,153,0.55)]
+                       transition
+                       disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {/* idle */}
+                <span class="absolute inset-0 grid place-items-center transition-transform duration-500
+                             [form[data-state='idle']_&]:translate-y-0
+                             [form[data-state='sending']_&]:-translate-y-full
+                             [form[data-state='sent']_&]:-translate-y-full">
+                  <span class="font-mono text-sm uppercase tracking-[0.26em]">Enviar</span>
+                </span>
+
+                {/* sending */}
+                <span class="absolute inset-0 grid place-items-center translate-y-full transition-transform duration-500
+                             bg-zinc-900 text-white
+                             [form[data-state='sending']_&]:translate-y-0
+                             [form[data-state='sent']_&]:-translate-y-full">
+                  <span class="font-mono text-[12px] uppercase tracking-widest">Enviando…</span>
+                </span>
+
+                {/* sent state visible */}
+                <span class="absolute inset-0 grid place-items-center translate-y-full transition-transform duration-500
+                             bg-emerald-400 text-black
+                             [form[data-state='sent']_&]:translate-y-0
+                             [form[data-state='idle']_&]:translate-y-full
+                             [form[data-state='sending']_&]:translate-y-full">
+                  <span class="font-serif italic text-2xl">Listo ✓</span>
+                </span>
+              </button>
+
+              <p class="mt-4 text-sm text-zinc-500 leading-relaxed">
+                Al enviar aceptas que usemos tu correo únicamente para responder este mensaje.
+              </p>
+            </div>
+          </form>
+        </div>
+
+        {/* SIDE PANEL */}
+        <aside class="lg:sticky lg:top-24 space-y-8 py-20">
+          <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
+            <h3 class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">
+              Direct link
+            </h3>
+            <a
+              href="mailto:help@nana.beauty"
+              class="mt-4 block font-serif text-3xl text-white/90 hover:text-pink-300 transition-colors"
+            >
+              help@nana.beauty
+            </a>
+            <p class="mt-4 text-sm text-zinc-500 font-mono leading-relaxed">
+              BOGOTÁ, D.C.<br />
+              CRA 11 # 85 - 12 (Oficina Virtual)
+            </p>
+          </div>
+
+          <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
+            <h3 class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">
+              Social
+            </h3>
+            <div class="mt-4 flex flex-col gap-2">
+              {["Instagram", "TikTok", "Twitter"].map((s) => (
+                <a
+                  href="#"
+                  class="text-base font-mono text-zinc-400 hover:text-white hover:tracking-widest transition-all"
+                >
+                  {s.toUpperCase()} ↗
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="text-sm text-zinc-600 leading-relaxed">
+            <span class="font-mono uppercase tracking-widest text-zinc-500">Nota</span>
+            <p class="mt-3">
+              Si necesitas algo urgente, usa <span class="text-zinc-400">PEDIDO</span> para priorizar soporte.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script is:inline define:vars={{ MAX_CHARS }}>
+      const clock = document.getElementById("js-clock");
+      const form = document.getElementById("js-contact-form");
+      const status = document.getElementById("js-form-status");
+      const submit = document.getElementById("js-submit");
+      const textarea = document.getElementById("message");
+      const charcount = document.getElementById("js-charcount");
+
+      const err = {
+        subject: document.getElementById("err-subject"),
+        name: document.getElementById("err-name"),
+        email: document.getElementById("err-email"),
+        message: document.getElementById("err-message"),
+      };
+
+      const showErr = (key, msg) => {
+        const el = err[key];
+        if (!el) return;
+        el.textContent = msg || "";
+        el.classList.toggle("hidden", !msg);
+      };
+
+      const clearErrors = () => {
+        showErr("subject", "");
+        showErr("name", "");
+        showErr("email", "");
+        showErr("message", "");
+        ["name", "email", "message"].forEach((id) => {
+          const field = document.getElementById(id);
+          field?.removeAttribute("aria-invalid");
+        });
+      };
+
+      // Clock
+      const tick = () => {
+        const now = new Date();
+        if (clock) clock.textContent = now.toLocaleTimeString("es-CO", { hour12: false });
+      };
+      tick();
+      setInterval(tick, 1000);
+
+      // Char count
+      const MAX = Number(MAX_CHARS);
+      const updateCount = () => {
+        if (!textarea || !charcount) return;
+        const v = textarea.value ?? "";
+        if (v.length > MAX) textarea.value = v.slice(0, MAX);
+        charcount.textContent = `${textarea.value.length}/${MAX}`;
+      };
+      textarea?.addEventListener("input", updateCount);
+      updateCount();
+
+      const validate = () => {
+        if (!form) return false;
+        clearErrors();
+
+        let ok = true;
+
+        // Radio group
+        const subjectChecked = form.querySelector("input[name='subject']:checked");
+        if (!subjectChecked) {
+          ok = false;
+          showErr("subject", "Selecciona un motivo para continuar.");
+        }
+
+        // Fields
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const message = document.getElementById("message");
+
+        const setInvalid = (field, key) => {
+          ok = false;
+          field?.setAttribute("aria-invalid", "true");
+          showErr(key, field?.validationMessage || "Campo inválido.");
+        };
+
+        if (name && !name.checkValidity()) setInvalid(name, "name");
+        if (email && !email.checkValidity()) setInvalid(email, "email");
+        if (message && !message.checkValidity()) setInvalid(message, "message");
+
+        if (!ok) {
+          const firstInvalid =
+            form.querySelector("[aria-invalid='true']") ||
+            form.querySelector("input[name='subject']");
+          firstInvalid?.focus?.();
+        }
+
+        return ok;
+      };
+
+      // Submit (demo)
+      form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!form || !status || !submit) return;
+
+        if (!validate()) return;
+
+        form.dataset.state = "sending";
+        status.textContent = "Sending";
+        submit.setAttribute("disabled", "true");
+
+        setTimeout(() => {
+          form.dataset.state = "sent";
+          status.textContent = "Sent";
+          form.reset();
+          updateCount();
+
+          setTimeout(() => {
+            form.dataset.state = "idle";
+            status.textContent = "Ready";
+            submit.removeAttribute("disabled");
+          }, 1800);
+        }, 1100);
+      });
+    </script>
+  </section>
+</BaseLayout>
