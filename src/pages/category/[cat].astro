@@ -1,9 +1,8 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import { products } from "../data/products";
+import { products } from "../../data/products";
 
-// Currency formatter for Colombian Peso
 const cop = new Intl.NumberFormat("es-CO", {
   style: "currency",
   currency: "COP",
@@ -20,41 +19,51 @@ const slugify = (s: string) =>
     .replace(/(^-|-$)/g, "");
 
 const CATEGORY_PRESET = [
-  { name: "Todos los Artículos", key: "all" },
   { name: "Rostro", key: "face" },
   { name: "Ojos", key: "eyes" },
   { name: "Labios", key: "lips" },
   { name: "Skincare", key: "skincare" },
 ];
 
-const selectedKey = Astro.url.searchParams.get("cat") ?? "all";
+export async function getStaticPaths() {
+  return ["face", "eyes", "lips", "skincare"].map((cat) => ({
+    params: { cat },
+  }));
+}
 
-const getCount = (key: string) => {
-  if (key === "all") return products.length;
-  return products.filter((p) => slugify(p.category ?? "") === key).length;
-};
+const selectedKey = Astro.params.cat ?? "";
+const selectedMeta = CATEGORY_PRESET.find((c) => c.key === selectedKey);
 
-const categories = CATEGORY_PRESET.map((c) => ({
-  name: c.name,
-  key: c.key,
-  count: getCount(c.key),
-  active: selectedKey === c.key,
-}));
+const isValid = Boolean(selectedMeta);
 
-const filtered =
-  selectedKey === "all"
-    ? products
-    : products.filter((p) => slugify(p.category ?? "") === selectedKey);
+const getCount = (key: string) =>
+  products.filter((p) => slugify(p.category ?? "") === key).length;
+
+const categories = [
+  { name: "Todos los Artículos", key: "all", count: products.length, active: false },
+  ...CATEGORY_PRESET.map((c) => ({
+    name: c.name,
+    key: c.key,
+    count: getCount(c.key),
+    active: c.key === selectedKey,
+  })),
+];
+
+const filtered = isValid
+  ? products.filter((p) => slugify(p.category ?? "") === selectedKey)
+  : [];
+
+const pageTitle = isValid ? `${selectedMeta!.name} | NANA Beauty` : `Categoría no encontrada | NANA Beauty`;
 ---
 
-<BaseLayout title="Archivo | NANA Beauty">
+<BaseLayout title={pageTitle}>
   <div class="min-h-screen bg-zinc-950 text-zinc-200 lg:grid lg:grid-cols-[300px_1fr] xl:grid-cols-[350px_1fr]">
     <aside class="relative flex flex-col border-b border-white/10 bg-zinc-950 p-6 lg:sticky lg:top-20 lg:h-[90vh] lg:border-b-0 lg:border-r lg:p-10 z-20">
       <div class="mb-12">
-        <h1 class="font-cinzel text-5xl text-white">
+        <h1 class="font-mono text-5xl italic tracking-tighter text-white">
           Catálogo
           <span class="block text-lg font-normal not-italic text-pink-500 font-mono tracking-widest mt-2">
-            /// MAKEUP ARCHIVE
+            /// {isValid ? selectedMeta!.name.toUpperCase() : "ARCHIVE"}
           </span>
         </h1>
       </div>
@@ -90,7 +99,21 @@ const filtered =
 
     <main class="relative bg-zinc-900">
       <div class="grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2 xl:grid-cols-3">
-        {filtered.map((product) => (
+        {!isValid && (
+          <div class="bg-zinc-950 p-12 sm:col-span-2 xl:col-span-3">
+            <p class="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-3">404</p>
+            <h2 class="font-serif italic text-3xl text-zinc-200">Categoría no encontrada</h2>
+            <p class="mt-3 text-sm text-zinc-400">Vuelve al catálogo o elige una categoría válida.</p>
+            <a
+              href="/catalog"
+              class="inline-flex mt-6 border border-white/20 px-6 py-3 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-colors"
+            >
+              Ir al catálogo
+            </a>
+          </div>
+        )}
+
+        {isValid && filtered.map((product) => (
           <a href={`/catalog/${product.slug}`} class="group relative block bg-zinc-950 overflow-hidden h-full">
             <div class="relative aspect-3/4 w-full max-h-80 overflow-hidden bg-zinc-900/50">
               <div class="flex h-full w-full items-center justify-center p-10 transition-transform duration-700 ease-in-out group-hover:scale-105">
@@ -126,7 +149,9 @@ const filtered =
                 </div>
 
                 <div class="text-right">
-                  <p class="font-mono text-sm font-medium text-white">{cop.format(product.priceCOP)}</p>
+                  <p class="font-mono text-sm font-medium text-white">
+                    {cop.format(product.priceCOP)}
+                  </p>
                 </div>
               </div>
 
@@ -147,11 +172,11 @@ const filtered =
           </a>
         ))}
 
-        {filtered.length === 0 && (
+        {isValid && filtered.length === 0 && (
           <div class="bg-zinc-950 p-12 sm:col-span-2 xl:col-span-3">
             <p class="font-mono text-xs text-zinc-500 uppercase tracking-widest mb-3">SIN RESULTADOS</p>
-            <h2 class="font-serif italic text-3xl text-zinc-200">No hay productos en esta categoría aún.</h2>
-            <p class="mt-3 text-sm text-zinc-400">Prueba otra sección del archivo.</p>
+            <h2 class="font-serif italic text-3xl text-zinc-200">No hay productos aquí todavía.</h2>
+            <p class="mt-3 text-sm text-zinc-400">Prueba otra categoría del archivo.</p>
           </div>
         )}
 

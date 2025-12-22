@@ -8,7 +8,7 @@ export type Product = {
   slug: string;
   name: string;
   desc: string;
-  category: "Lips" | "Face" | "Eyes" | "Skincare";
+  category: "Lips" | "Face" | "Eyes" | "Skincare" | "Nails" | "Tools";
   priceCOP: number;
   rating?: number;
   badge?: "New" | "Best seller" | "Limited";
@@ -42,33 +42,25 @@ export const products: Product[] = [
     colors: ["#F2F0EA", "#18181b"]
   },
   {
-    slug: "liner-void-black",
-    name: "Void Black Liner",
-    desc: "Sharp tip • smudge-resistant • deep black.",
-    category: "Eyes",
-    priceCOP: 42900,
+    slug: "rose-veil-blush",
+    name: "Rose Veil Blush",
+    desc: "Soft buildable color • velvet finish.",
+    category: "Face",
+    priceCOP: 58900,
+    rating: 4.6,
+    image: bread,
+    colors: ["#F2F0EA", "#18181b"]
+  },
+  {
+    slug: "midnight-barrier-serum",
+    name: "Midnight Barrier Serum",
+    desc: "Hydrate • repair • glow-safe finish.",
+    category: "Skincare",
+    priceCOP: 69900,
     rating: 4.7,
-    image: logo,
-    colors: ["#F2F0EA", "#18181b"]
-  },
-  {
-    slug: "rose-veil-blush",
-    name: "Rose Veil Blush",
-    desc: "Soft buildable color • velvet finish.",
-    category: "Face",
-    priceCOP: 58900,
-    rating: 4.6,
+    badge: "New",
     image: bread,
     colors: ["#F2F0EA", "#18181b"]
   },
-  {
-    slug: "rose-veil-blush",
-    name: "Rose Veil Blush",
-    desc: "Soft buildable color • velvet finish.",
-    category: "Face",
-    priceCOP: 58900,
-    rating: 4.6,
-    image: bread,
-    colors: ["#F2F0EA", "#18181b"]
-  },
+
 ];

@@ -21,10 +21,8 @@ const cop = new Intl.NumberFormat("es-CO", {
 ---
 
 <BaseLayout title={`${product.name} | NANA Beauty`}>
-  <Header />
 
-  <section class="relative py-12 md:py-16 bg-zinc-950 overflow-hidden">
-    <!-- Textura de fondo (grid sutil) -->
+  <section class="relative py-12 md:py-12 bg-zinc-950 overflow-hidden">
     <div
       class="pointer-events-none absolute inset-0 opacity-[0.15]"
       style="
@@ -151,24 +149,34 @@ const cop = new Intl.NumberFormat("es-CO", {
           <!-- CTAs -->
           <div class="mt-8 grid gap-3 sm:grid-cols-2">
             <button
-              class="inline-flex items-center justify-center rounded-2xl px-5 py-3 font-semibold
-                     bg-pink-600 text-white hover:bg-pink-500 active:translate-y-px
-                     focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40"
               type="button"
+              disabled
+              aria-disabled="true"
+              data-disabled-cta
+              class="inline-flex items-center justify-center rounded-2xl px-5 py-3 font-semibold
+                    bg-pink-600/30 text-white/70 border border-white/10
+                    cursor-not-allowed select-none
+                    focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/30"
             >
               Agregar al carrito
             </button>
 
-            <button
+            <a
+              href="https://wa.me/573116973505"
+              target="_blank"
+              rel="noopener noreferrer"
               class="inline-flex items-center justify-center rounded-2xl px-5 py-3 font-semibold
-                     border border-white/10 bg-white/5 text-white backdrop-blur-sm
-                     transition hover:border-pink-500/30 hover:bg-pink-500/10 hover:text-pink-200
-                     active:translate-y-px
-                     focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/30"
-              type="button"
+                    border border-white/10 bg-white/5 text-white backdrop-blur-sm
+                    transition hover:border-pink-500/30 hover:bg-pink-500/10 hover:text-pink-200
+                    active:translate-y-px
+                    focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/30"
             >
-              Comprar ahora
-            </button>
+              Comprar por WhatsApp ↗
+            </a>
+
+            <p class="sm:col-span-2 mt-1 text-sm text-zinc-400">
+              Carrito y checkout están en construcción. Por ahora, compra por WhatsApp.
+            </p>
           </div>
 
           <!-- Details -->
@@ -222,5 +230,29 @@ const cop = new Intl.NumberFormat("es-CO", {
         }
       </style>
     </main>
+
+    <div id="toast" class="pointer-events-none fixed left-1/2 top-6 -translate-x-1/2 opacity-0 -translate-y-1.5 transition-all duration-300 z-9999">
+      <div class="rounded-2xl border border-white/10 bg-zinc-950/90 px-4 py-2 text-sm text-zinc-200 shadow-lg">
+        Carrito en construcción. Compra por WhatsApp ↗
+      </div>
+    </div>
+
+    <script is:inline>
+      const toast = document.getElementById("toast");
+      const disabledCtas = document.querySelectorAll("[data-disabled-cta]");
+
+      const showToast = () => {
+        if (!toast) return;
+        toast.classList.remove("opacity-0", "translate-y-[-6px]");
+        toast.classList.add("opacity-100", "translate-y-0");
+        clearTimeout((window).__t);
+        (window).__t = setTimeout(() => {
+          toast.classList.add("opacity-0", "translate-y-[-6px]");
+          toast.classList.remove("opacity-100", "translate-y-0");
+        }, 1400);
+      };
+
+      disabledCtas.forEach((btn) => btn.addEventListener("click", showToast));
+    </script>
   </section>
 </BaseLayout>

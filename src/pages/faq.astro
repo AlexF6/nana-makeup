@@ -1,4 +1,8 @@
 ---
+function linkClass(arg0: string): string | null | undefined {
+throw new Error("Function not implemented.");
+}
+
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const categories = [
@@ -34,9 +38,7 @@ const categories = [
 <BaseLayout title="FAQ | Protocolos">
   <section class="min-h-screen bg-zinc-950 text-zinc-300 selection:bg-pink-500 selection:text-white">
     
-    {/* HEADER SECTION - TYPE HEAVY */}
-    <div class="relative w-full border-b border-white/10 px-6 py-24 md:px-12 lg:py-32 overflow-hidden">
-      <!-- Background Decorative Element -->
+    <div class="relative w-full border-b border-white/10 py-24 md:px-6 lg:py-12 overflow-hidden">
       <div class="absolute -right-20 top-0 z-0 opacity-10 pointer-events-none">
         <h1 class="text-[15rem] leading-none font-black text-transparent" 
             style="-webkit-text-stroke: 1px #fff;">
@@ -57,12 +59,10 @@ const categories = [
       </div>
     </div>
 
-    {/* CONTENT GRID - MASONRY STYLE */}
     <div class="w-full">
       {categories.map((cat, index) => (
         <div class="group relative border-b border-white/10">
           
-          {/* Category Header */}
           <div class="sticky top-0 z-20 flex w-full items-center justify-between bg-zinc-950/95 backdrop-blur-sm px-6 py-4 md:px-12 border-b border-white/5">
             <h2 class="font-serif text-2xl md:text-3xl text-white">
               <span class="text-pink-500 font-mono text-sm mr-4 align-middle opacity-50">//{cat.id}</span>
@@ -94,8 +94,7 @@ const categories = [
                   {item.a}
                 </p>
 
-                {/* Hover Effect Line */}
-                <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-pink-500 transition-all duration-300 group-hover:w-full"></div>
+                <div class="absolute bottom-0 left-0 h-0.5 w-0 bg-pink-500 transition-all duration-300 group-hover:w-full"></div>
               </div>
             ))}
           </div>
@@ -103,16 +102,19 @@ const categories = [
       ))}
     </div>
 
-    {/* FOOTER CTA - TERMINAL STYLE */}
     <div class="border-b border-white/10 bg-zinc-900/20 px-6 py-20 text-center">
       <p class="font-mono text-zinc-500 mb-6 text-sm">¿ERROR EN EL SISTEMA? ¿PREGUNTA SIN RESPUESTA?</p>
-      <a href="mailto:humanos@nana.beauty" 
-         class="inline-block relative overflow-hidden group border border-zinc-700 px-8 py-4">
-        <div class="absolute inset-0 w-0 bg-pink-600 transition-all duration-250 ease-out group-hover:w-full opacity-10"></div>
-        <span class="relative font-serif text-2xl text-white group-hover:tracking-widest transition-all duration-300">
-          CONTACTAR SOPORTE
-        </span>
-      </a>
+      <div class="absolute inset-0 w-0 bg-pink-600 transition-all duration-250 ease-out group-hover:w-full opacity-10"></div>
+        <a
+          data-nav-link
+          href="/contact"
+          class="inline-block relative overflow-hidden group border border-zinc-700 px-8 py-4"
+        >
+          <span class="absolute inset-0 w-0 bg-pink-600 transition-all duration-250 ease-out group-hover:w-full opacity-10"></span>
+          <span class="relative font-serif text-2xl text-white group-hover:tracking-widest transition-all duration-300">
+            CONTACTAR SOPORTE
+          </span>
+        </a>
     </div>
 
   </section>

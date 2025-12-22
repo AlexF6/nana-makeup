@@ -1,12 +1,27 @@
 ---
 import { Image } from "astro:assets";
-import bread from "../assets/images/bread.webp";
+import { products as allProducts } from "../data/products";
+
+const cop = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP",
+  maximumFractionDigits: 0,
+});
+
+const categoryLabel: Record<string, string> = {
+  Face: "Rostro",
+  Eyes: "Ojos",
+  Lips: "Labios",
+  Skincare: "Skincare",
+};
 
 const products = [
-  { id: 1, name: "Bota Alta Ida Lace Up", price: "$ 149.900", image: bread, category: "Calzado", colors: ["#F2F0EA", "#18181b"] },
-  { id: 2, name: "Jacqueline Pull On", price: "$ 149.900", image: bread, category: "Más Vendido", colors: ["#e11d48", "#000000"] },
-  { id: 3, name: "Ballet Sneaker Isolde", price: "$ 149.900", image: bread, category: "Novedad", colors: ["#000000", "#F2F0EA", "#4B5563"] },
-];
+  ...allProducts.filter((p) => p.badge === "New"),
+  ...allProducts.filter((p) => p.badge !== "New"),
+].slice(0, 3);
+
+const uiCategory = (c: string) => categoryLabel[c] ?? c;
+
 ---
 
 <section class="relative min-h-screen bg-zinc-950 py-20 md:py-24 text-zinc-100 selection:bg-pink-500/30 overflow-hidden">
@@ -29,21 +44,21 @@ const products = [
 
     <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-8">
       {products.map((product, idx) => (
-        <article class="group relative reveal" style={`--d:${idx * 90}ms`}>
+        <article class="group relative" style={`--d:${idx * 90}ms`}>
           <div class="rounded-4xl p-px bg-linear-to-b from-white/12 via-white/6 to-transparent
                       transition-transform duration-500 hover:-translate-y-1">
             <div class="rounded-[1.95rem] bg-zinc-950/50 border border-white/10
                         shadow-[0_18px_70px_rgba(0,0,0,0.45)]">
 
               <a
-                href={`/product/${product.id}`}
+                href={`/catalog/${product.slug}`}
                 class="relative block overflow-hidden rounded-[1.85rem] bg-zinc-900/40 aspect-4/5
                         focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40"
               >
                 <div class="absolute left-0 top-0 z-10 w-full p-5 flex items-start justify-between">
                   <span class="font-mono text-[10px] uppercase tracking-[0.22em]
                                rounded-full border border-white/10 bg-black/40 px-3 py-1 text-zinc-200 backdrop-blur">
-                    {product.category}
+                    {uiCategory(product.category)}
                   </span>
 
                   <div class="flex items-center gap-1.5">
@@ -92,20 +107,20 @@ const products = [
                 <div class="flex items-start justify-between gap-4 border-t border-white/10 pt-4 transition-colors group-hover:border-pink-500/35">
                   <div class="min-w-0">
                     <h3 class="font-serif text-2xl text-zinc-100 transition-colors group-hover:text-pink-300">
-                      <a href={`/product/${product.id}`} class="outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 rounded">
+                      <a href={`/catalog/${product.slug}`} class="outline-none focus-visible:ring-2 focus-visible:ring-pink-500/40 rounded">
                         {product.name}
                       </a>
                     </h3>
                   </div>
 
                   <span class="shrink-0 font-mono text-lg font-semibold text-zinc-100 transition-colors group-hover:text-pink-200">
-                    {product.price}
+                    {cop.format(product.priceCOP)}
                   </span>
                 </div>
 
                 <div class="mt-4 flex items-center justify-between">
                   <a
-                    href={`/product/${product.id}`}
+                    href={`/catalog/${product.slug}`}
                     class="text-xs font-mono uppercase tracking-[0.22em] text-zinc-400 hover:text-pink-200 transition-colors"
                   >
                     Ver detalles →
@@ -139,48 +154,3 @@ const products = [
     </div>
   </div>
 </section>
-
-<script is:inline>
-  const revealAll = () => {
-    const items = document.querySelectorAll(".reveal");
-    if (!items.length) return;
-
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          e.target.classList.add("is-visible");
-          io.unobserve(e.target);
-        }
-      }
-    }, { threshold: 0.15, rootMargin: "0px 0px 10% 0px" });
-
-    items.forEach((el) => io.observe(el));
-  };
-
-  revealAll();
-  document.addEventListener("astro:page-load", revealAll);
-</script>
-
-<style>
-  .reveal {
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-    filter: blur(6px);
-    transition:
-      opacity 700ms cubic-bezier(.16,1,.3,1),
-      transform 700ms cubic-bezier(.16,1,.3,1),
-      filter 700ms cubic-bezier(.16,1,.3,1);
-    transition-delay: var(--d, 0ms);
-    will-change: opacity, transform, filter;
-  }
-
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; filter: none; transition: none; }
-  }
-</style>

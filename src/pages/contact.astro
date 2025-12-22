@@ -1,4 +1,5 @@
 ---
+// src/pages/contact.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const SUBJECTS = [
@@ -8,53 +9,67 @@ const SUBJECTS = [
   { key: "WHOLESALE", desc: "Distribución y tiendas." },
 ];
 
+const SOCIALS = [
+  { label: "WhatsApp", href: "https://api.whatsapp.com/send/?phone=573116973505" },
+  { label: "Instagram", href: "https://www.instagram.com/dearnanabeauty/" },
+  { label: "TikTok", href: "https://www.tiktok.com/@dearnanamakeup" },
+];
+
 const MAX_CHARS = 1200;
 
-// UI scale helpers (para que no se vea apretado)
-const legendClass = "text-[12px] md:text-[13px] font-mono uppercase tracking-widest text-zinc-400";
-const labelClass = "block text-[12px] md:text-[13px] font-mono uppercase tracking-widest text-zinc-400";
-const helpClass = "mt-2.5 text-sm text-zinc-400 leading-relaxed";
+const legendClass = "text-[12px] md:text-[13px] font-mono uppercase tracking-widest text-zinc-300";
+const labelClass = "block text-[12px] md:text-[13px] font-mono uppercase tracking-widest text-zinc-300";
+const helpClass = "mt-2.5 text-sm text-zinc-300 leading-relaxed";
 const errClass = "mt-2.5 text-sm text-pink-300 hidden leading-relaxed";
 const inputBase =
   "w-full rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-3.5 md:py-4 " +
-  "text-base text-white placeholder:text-zinc-600 " +
+  "text-base text-white placeholder:text-zinc-400 " +
   "focus:outline-none focus:ring-2 focus:ring-pink-500/35 focus:border-pink-500/30 " +
   "hover:bg-white/[0.04] transition";
 const inputMono = inputBase.replace("text-base", "font-mono text-base");
 const textareaClass =
   "mt-3 w-full rounded-2xl border border-white/10 bg-white/[0.02] px-5 py-4 " +
-  "text-base text-zinc-200 placeholder:text-zinc-600 " +
+  "text-base text-zinc-200 placeholder:text-zinc-400 " +
   "focus:outline-none focus:ring-2 focus:ring-pink-500/35 focus:border-pink-500/30 " +
   "hover:bg-white/[0.04] transition resize-none leading-relaxed";
 ---
 
 <BaseLayout title="Contacto | Log">
-  <section class="pt-24 relative min-h-screen bg-zinc-950 text-zinc-200 selection:bg-pink-500 selection:text-white overflow-x-hidden">
-    {/* ART BACKGROUND */}
+  <section class="pt-12 relative min-h-screen bg-zinc-950 text-zinc-200 selection:bg-pink-500 selection:text-white">
+    <div class="absolute inset-0 overflow-x-hidden pointer-events-none">
+      <div
+        class="absolute inset-0 opacity-[0.03] mix-blend-overlay"
+        style="background-image:url('https://grainy-gradients.vercel.app/noise.svg');"
+      ></div>
+      <div class="absolute top-25 left-1/2 -translate-x-1/2 w-50 h-50 bg-pink-600/20 blur-[120px] rounded-full"></div>
+    </div>
 
-    <div class="relative z-10 mx-auto w-full max-w-3xl px-6 py-8">
+    <div class="relative z-10 mx-auto w-full px-6">
       {/* HERO */}
-      <header class="mb-12 md:mb-24">
-
-        <h1 class=" font-serif text-5xl md:text-7xl text-white tracking-tight">
+      <header class="mb-12 md:mb-12">
+        <h1 class="font-serif text-5xl md:text-7xl text-white tracking-tight">
           Hablemos.
           <span class="block italic text-zinc-500">Con calma, con intención.</span>
         </h1>
 
-        <p class="mt-4 max-w-2xl text-base text-zinc-400 leading-relaxed">
+        <p class="mt-4 max-w-2xl text-base text-zinc-300 leading-relaxed">
           Envíanos tu mensaje y elige el motivo. Te responderemos al correo que dejes aquí.
           <span class="text-zinc-500"> (Nada de spam, solo conversación.)</span>
         </p>
       </header>
 
-      <div class="grid gap-10 lg:grid-cols-[1.4fr_0.9fr] items-start">
+      <div class="grid gap-10 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_420px] items-start">
         {/* FORM CARD */}
         <div class="rounded-3xl border border-white/10 bg-white/3 backdrop-blur-xl shadow-[0_18px_80px_-45px_rgba(0,0,0,0.95)] overflow-hidden">
           <div class="flex items-center justify-between gap-3 px-5 py-4 border-b border-white/10 bg-zinc-950/30">
-            <div class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-zinc-400">
+            <div class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-zinc-300">
               Message composer
             </div>
-            <div id="js-form-status" class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-zinc-500" aria-live="polite">
+            <div
+              id="js-form-status"
+              class="text-[11px] md:text-xs font-mono uppercase tracking-widest text-zinc-500"
+              aria-live="polite"
+            >
               Ready
             </div>
           </div>
@@ -98,7 +113,7 @@ const textareaClass =
                           </span>
                         </div>
 
-                        <p class="mt-2 text-sm text-zinc-400 leading-relaxed">
+                        <p class="mt-2 text-sm text-zinc-300 leading-relaxed">
                           {s.desc}
                         </p>
                       </div>
@@ -180,14 +195,14 @@ const textareaClass =
                 id="js-submit"
                 type="submit"
                 class="group relative w-full overflow-hidden rounded-2xl border border-white/10
-                       bg-white text-zinc-950 h-16
+                       bg-pink-500/70 text-gray-300 h-16
                        hover:shadow-[0_20px_60px_-25px_rgba(236,72,153,0.55)]
                        transition
                        disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {/* idle */}
                 <span class="absolute inset-0 grid place-items-center transition-transform duration-500
-                             [form[data-state='idle']_&]:translate-y-0
+                             [form[data-state='idle']_&]:translate-y-0 hover:text-white
                              [form[data-state='sending']_&]:-translate-y-full
                              [form[data-state='sent']_&]:-translate-y-full">
                   <span class="font-mono text-sm uppercase tracking-[0.26em]">Enviar</span>
@@ -211,52 +226,69 @@ const textareaClass =
                 </span>
               </button>
 
-              <p class="mt-4 text-sm text-zinc-500 leading-relaxed">
+              <p class="mt-4 text-sm text-zinc-400 leading-relaxed">
                 Al enviar aceptas que usemos tu correo únicamente para responder este mensaje.
               </p>
             </div>
           </form>
         </div>
 
-        {/* SIDE PANEL */}
-        <aside class="lg:sticky lg:top-24 space-y-8 py-20">
-          <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
-            <h3 class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">
-              Direct link
-            </h3>
-            <a
-              href="mailto:help@nana.beauty"
-              class="mt-4 block font-serif text-3xl text-white/90 hover:text-pink-300 transition-colors"
-            >
-              help@nana.beauty
-            </a>
-            <p class="mt-4 text-sm text-zinc-500 font-mono leading-relaxed">
-              BOGOTÁ, D.C.<br />
-              CRA 11 # 85 - 12 (Oficina Virtual)
-            </p>
-          </div>
-
-          <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
-            <h3 class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">
-              Social
-            </h3>
-            <div class="mt-4 flex flex-col gap-2">
-              {["Instagram", "TikTok", "Twitter"].map((s) => (
-                <a
-                  href="#"
-                  class="text-base font-mono text-zinc-400 hover:text-white hover:tracking-widest transition-all"
-                >
-                  {s.toUpperCase()} ↗
-                </a>
-              ))}
+        {/* SIDE PANEL (STICKY) */}
+        <aside class="sticky top-20 h-[90vh] self-start">
+          <div class="h-full rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl overflow-hidden">
+            {/* header mini */}
+            <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-zinc-950/30">
+              <span class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">WIDGET</span>
+              <span class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-zinc-300">CONTACT</span>
             </div>
-          </div>
 
-          <div class="text-sm text-zinc-600 leading-relaxed">
-            <span class="font-mono uppercase tracking-widest text-zinc-500">Nota</span>
-            <p class="mt-3">
-              Si necesitas algo urgente, usa <span class="text-zinc-400">PEDIDO</span> para priorizar soporte.
-            </p>
+            {/* Intern scroll */}
+            <div class="p-6 space-y-8 overflow-auto h-[calc(90vh-56px)]">
+              {/* Direct link */}
+              <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
+                <h3 class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">
+                  Direct link
+                </h3>
+                <a
+                  href="mailto:help@nana.beauty"
+                  class="mt-4 block font-serif text-3xl text-white/90 hover:text-pink-300 transition-colors"
+                >
+                  help@nana.beauty
+                </a>
+                <p class="mt-4 text-sm text-zinc-300 font-mono leading-relaxed">
+                  BOGOTÁ, D.C.<br />
+                  CRA 11 # 85 - 12 (Oficina Virtual)
+                </p>
+              </div>
+
+              {/* Social */}
+              <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
+                <h3 class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-pink-400">
+                  Social
+                </h3>
+
+                  <div class="mt-4 flex flex-col gap-2">
+                    {SOCIALS.map((s) => (
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-base font-mono text-zinc-300 hover:text-white hover:tracking-widest transition-all"
+                      >
+                        {s.label.toUpperCase()} ↗
+                      </a>
+                    ))}
+                  </div>
+              </div>
+
+              {/* Nota */}
+              <div class="rounded-3xl border border-white/10 bg-white/2 backdrop-blur-xl p-6">
+                <span class="font-mono text-[11px] md:text-xs uppercase tracking-widest text-zinc-300">Nota</span>
+                <p class="mt-3 text-sm text-zinc-400 leading-relaxed">
+                  Si necesitas algo urgente, usa <span class="text-zinc-300">PEDIDO</span> para priorizar soporte.
+                </p>
+              </div>
+            </div>
           </div>
         </aside>
       </div>
@@ -295,7 +327,6 @@ const textareaClass =
         });
       };
 
-      // Clock
       const tick = () => {
         const now = new Date();
         if (clock) clock.textContent = now.toLocaleTimeString("es-CO", { hour12: false });
@@ -303,7 +334,6 @@ const textareaClass =
       tick();
       setInterval(tick, 1000);
 
-      // Char count
       const MAX = Number(MAX_CHARS);
       const updateCount = () => {
         if (!textarea || !charcount) return;
@@ -320,14 +350,12 @@ const textareaClass =
 
         let ok = true;
 
-        // Radio group
         const subjectChecked = form.querySelector("input[name='subject']:checked");
         if (!subjectChecked) {
           ok = false;
           showErr("subject", "Selecciona un motivo para continuar.");
         }
 
-        // Fields
         const name = document.getElementById("name");
         const email = document.getElementById("email");
         const message = document.getElementById("message");
@@ -352,30 +380,40 @@ const textareaClass =
         return ok;
       };
 
-      // Submit (demo)
-      form?.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (!form || !status || !submit) return;
+    form?.addEventListener("submit", (e) => {
+    const WHATSAPP_PHONE = "573116973505";
 
-        if (!validate()) return;
+      e.preventDefault();
+      if (!form || !status || !submit) return;
 
-        form.dataset.state = "sending";
-        status.textContent = "Sending";
-        submit.setAttribute("disabled", "true");
+      if (!validate()) return;
 
-        setTimeout(() => {
-          form.dataset.state = "sent";
-          status.textContent = "Sent";
-          form.reset();
-          updateCount();
+      const subject = form.querySelector("input[name='subject']:checked")?.value ?? "CONTACTO";
+      const name = document.getElementById("name")?.value?.trim() ?? "";
+      const email = document.getElementById("email")?.value?.trim() ?? "";
+      const message = document.getElementById("message")?.value?.trim() ?? "";
 
-          setTimeout(() => {
-            form.dataset.state = "idle";
-            status.textContent = "Ready";
-            submit.removeAttribute("disabled");
-          }, 1800);
-        }, 1100);
-      });
+      const text =
+        `NANA BEAUTY — SOPORTE\n` +
+        `Motivo: ${subject}\n` +
+        `Nombre: ${name}\n` +
+        `Email: ${email}\n\n` +
+        `${message}`;
+
+      const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+
+      form.dataset.state = "sending";
+      status.textContent = "Opening WhatsApp";
+      submit.setAttribute("disabled", "true");
+
+      window.open(url, "_blank", "noopener,noreferrer");
+
+      setTimeout(() => {
+        form.dataset.state = "idle";
+        status.textContent = "Ready";
+        submit.removeAttribute("disabled");
+      }, 600);
+    });
     </script>
   </section>
 </BaseLayout>

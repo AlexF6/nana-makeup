@@ -9,7 +9,7 @@ const featuredBig = {
   price: "$ 149.900",
   image: bread,
   meta: "4.9 ★★★★★",
-  tags: ["Cruelty-free", "Resistente al agua", "Alta Pigmentación"]
+  tags: ["Cruelty-free", "Resistente al agua", "Alta Pigmentación"],
 };
 
 const featuredSmall = {
@@ -23,22 +23,18 @@ const featuredSmall = {
 ---
 
 <section class="relative overflow-hidden py-12 md:py-8 lg:py-6 bg-zinc-950">
-  
   <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
     <div class="absolute -left-[10%] top-0 h-125 w-125 rounded-full bg-pink-500/20 blur-[120px] mix-blend-screen"></div>
     <div class="absolute right-0 top-[20%] h-100 w-100 rounded-full bg-rose-600/15 blur-[100px] mix-blend-screen"></div>
   </div>
 
   <div class="mx-auto w-full max-w-450">
-    
     <div class="grid gap-6 lg:grid-cols-[12fr_8fr] lg:gap-8 items-stretch">
-      
       <div class="flex flex-col gap-6 h-full">
-        
         <div
           class="animate-entry relative flex flex-col justify-center overflow-hidden rounded-4xl border border-white/10 bg-zinc-900/40 p-6 backdrop-blur-xl md:p-10 lg:flex-1"
           style="--delay: 100ms"
-            >
+        >
           <div class="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-linear-to-br from-pink-500 to-rose-500 opacity-20 blur-3xl"></div>
 
           <div class="relative z-10">
@@ -52,7 +48,7 @@ const featuredSmall = {
             <p class="mt-6 max-w-prose text-base leading-relaxed text-zinc-300 md:text-lg">
               Expresa tu lado más auténtico. Productos inspirados en el anime icónico que capturan la esencia rebelde y elegante.
             </p>
-            
+
             <div class="mt-5 flex flex-wrap gap-2">
               {["Cruelty-free", "Alta pigmentación", "Larga duración", "Punk-goth glam"].map((t) => (
                 <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-zinc-300">
@@ -124,14 +120,15 @@ const featuredSmall = {
               </div>
             </div>
 
-            <div class="relative h-48 sm:h-auto sm:w-48 overflow-hidden rounded-3xl">
+            <div class="relative h-48 w-full sm:w-48 sm:h-auto aspect-square shrink-0 overflow-hidden rounded-3xl bg-zinc-800">
               <Image
                 src={featuredSmall.image}
                 alt={featuredSmall.title}
                 loading="eager"
+                decoding="async"
+                widths={[200, 400]}
+                sizes="(min-width: 640px) 192px, 100vw"
                 class="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-                width={400}
-                height={400}
               />
               <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl"></div>
             </div>
@@ -144,15 +141,16 @@ const featuredSmall = {
         class="animate-entry group relative flex flex-col overflow-hidden rounded-4xl border border-white/10 bg-zinc-900/40 p-2 transition-all duration-300 hover:-translate-y-1 hover:border-pink-500/30 hover:bg-zinc-900/60 hover:shadow-2xl hover:shadow-pink-900/20 h-full"
         style="--delay: 300ms"
       >
-        <div class="relative w-full overflow-hidden rounded-3xl flex-1">
-
+        <div class="relative w-full overflow-hidden rounded-3xl flex-1 bg-zinc-950-90">
           <Image
             src={featuredBig.image}
             alt={featuredBig.title}
             class="h-full w-full object-cover transition duration-700 ease-in-out group-hover:scale-105"
             loading="eager"
-            width={800}
-            height={1000}
+            decoding="async"
+            fetchpriority="high"
+            widths={[400, 800, 1000]}
+            sizes="(min-width: 1024px) 40vw, 100vw"
           />
           <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-zinc-950/80 via-transparent to-transparent"></div>
 
@@ -176,9 +174,9 @@ const featuredSmall = {
 
           <div class="flex items-center justify-between border-t border-white/10 pt-4 mt-auto">
             <div class="flex flex-wrap gap-x-3 gap-y-2 text-xs font-medium text-zinc-400">
-              {featuredBig.tags.map(tag => (
+              {featuredBig.tags.map((tag) => (
                 <span class="flex items-center gap-1.5">
-                  <span class="h-1.5 w-1.5 rounded-full bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.8)]"></span> 
+                  <span class="h-1.5 w-1.5 rounded-full bg-pink-500 shadow-[0_0_8px_rgba(236,72,153,0.8)]"></span>
                   {tag}
                 </span>
               ))}
@@ -192,26 +190,36 @@ const featuredSmall = {
 </section>
 
 <style>
-  /* Entrance Animation */
   .animate-entry {
     opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform: translate3d(0, 20px, 0) scale(0.98);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
     animation-delay: var(--delay, 0ms);
+    will-change: transform, opacity;
   }
 
   @keyframes fadeInUp {
-    from { 
-      opacity: 0; 
-      transform: translateY(20px) scale(0.98); 
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0) scale(0.98);
+      visibility: hidden;
     }
-    to { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
+    1% {
+      visibility: visible;
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      visibility: visible;
     }
   }
 
-  /* Handle reduced motion preferences */
   @media (prefers-reduced-motion: reduce) {
-    .animate-entry { opacity: 1; animation: none; transform: none; }
+    .animate-entry {
+      opacity: 1;
+      transform: none;
+      animation: none;
+      visibility: visible;
+    }
   }
 </style>
