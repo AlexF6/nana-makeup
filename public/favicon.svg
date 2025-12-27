@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
   <g fill="#ff2fb4" fill-rule="evenodd">
-    <!-- D (bold, estándar) -->
     <path d="
       M 8 10
       L 30 10
@@ -17,12 +16,8 @@
       Z
     "/>
 
-    <!-- N (más larga/alta y estándar, con diagonal gruesa) -->
-    <!-- barra izquierda -->
     <rect x="56" y="10" width="10" height="80"/>
-    <!-- barra derecha -->
     <rect x="86" y="10" width="10" height="80"/>
-    <!-- diagonal -->
     <path d="M 66 10 L 76 10 L 86 90 L 76 90 Z"/>
   </g>
 </svg>
