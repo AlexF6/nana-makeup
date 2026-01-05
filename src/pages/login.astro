@@ -1,0 +1,263 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const API = import.meta.env.PUBLIC_API_URL ?? "http://localhost:3000";
+---
+
+<BaseLayout title="Login | NANA">
+  <section class="min-h-screen bg-zinc-950 text-zinc-300 selection:bg-pink-500 selection:text-white">
+    {/* Background grid + glow */}
+    <div class="pointer-events-none fixed inset-0 opacity-[0.18]">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(236,72,153,0.14),transparent_35%),radial-gradient(circle_at_80%_30%,rgba(255,255,255,0.06),transparent_40%),radial-gradient(circle_at_50%_85%,rgba(236,72,153,0.08),transparent_45%)]"></div>
+      <div
+        class="absolute inset-0"
+        style="
+          background-image:
+            linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+          background-size: 48px 48px;
+          mask-image: radial-gradient(circle at 50% 40%, black 0%, transparent 60%);
+        "
+      ></div>
+    </div>
+
+    {/* Top bar (cliente) */}
+    <header class="relative z-10 border-b border-white/10">
+      <div class="mx-auto max-w-6xl px-6 md:px-12 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex h-2 w-2 rounded-full bg-pink-500 shadow-[0_0_18px_rgba(236,72,153,0.6)]"></span>
+          <p class="font-mono text-xs text-zinc-300">
+            NANA<span class="text-zinc-600">/</span>ACCESO
+          </p>
+        </div>
+
+        <a href="/" class="font-mono text-xs text-zinc-300 hover:text-pink-200 transition">
+          VOLVER A LA TIENDA →
+        </a>
+      </div>
+    </header>
+
+    {/* Main split */}
+    <main class="relative z-10 mx-auto max-w-6xl px-6 md:px-12 py-10 lg:py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        {/* Left: copy para clientes */}
+        <div class="lg:col-span-5">
+          <div class="border border-white/10 bg-zinc-950/40 backdrop-blur-sm">
+            <div class="px-6 py-6 border-b border-white/10">
+              <p class="font-mono text-[10px] text-zinc-500">
+                // BIENVENIDO
+              </p>
+
+              <h1 class="mt-3 font-serif text-5xl md:text-6xl text-white tracking-tight leading-[0.95]">
+                INICIA
+                <span class="block italic text-zinc-600">SESIÓN</span>
+              </h1>
+
+              <p class="mt-5 font-mono text-xs md:text-sm text-zinc-300 leading-relaxed border-l border-zinc-800 pl-5">
+                Accede para ver tus pedidos, guardar favoritos y comprar más rápido.
+              </p>
+            </div>
+
+            <div class="p-6 space-y-4">
+              <div class="border border-white/10 bg-zinc-950/40 p-4">
+                <p class="font-mono text-xs text-zinc-300 leading-relaxed">
+                  // LO QUE OBTIENES<br />
+                  - Historial de pedidos y estado de envío<br />
+                  - Direcciones guardadas para checkout rápido<br />
+                  - Favoritos y productos guardados
+                </p>
+              </div>
+
+              <div class="border border-white/10 bg-zinc-950/40 p-4">
+                <p class="font-mono text-xs text-zinc-300 leading-relaxed">
+                  // SEGURIDAD<br />
+                  Tu información se maneja de forma segura y solo se usa para gestionar tu cuenta y compras.
+                </p>
+              </div>
+
+              <div class="border border-white/10 bg-zinc-950/40 p-4">
+                <p class="font-mono text-xs text-zinc-300 leading-relaxed">
+                  // ¿NECESITAS AYUDA?<br />
+                  Si tienes problemas para entrar, recupera tu contraseña o crea una cuenta en segundos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: login card */}
+        <div class="lg:col-span-7">
+          <div class="relative border border-white/10 bg-zinc-950/60 backdrop-blur-sm overflow-hidden">
+            {/* subtle neon edge */}
+            <div class="pointer-events-none absolute -inset-px opacity-40">
+              <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,rgba(236,72,153,0.20),transparent_40%),radial-gradient(circle_at_80%_60%,rgba(236,72,153,0.10),transparent_45%)]"></div>
+            </div>
+
+            <div class="relative px-6 py-5 border-b border-white/10 flex items-center justify-between">
+              <div>
+                <p class="font-mono text-[10px] text-zinc-500">// ACCESO A TU CUENTA</p>
+                <p class="font-serif text-xl text-white mt-1">Ingresa tus datos</p>
+              </div>
+
+              <div class="font-mono text-[10px] text-zinc-500">
+                ESTADO: <span id="statusText" class="text-zinc-300">LISTO</span>
+              </div>
+            </div>
+
+            <form id="loginForm" class="relative p-8 md:p-10">
+              <div class="grid grid-cols-1 gap-6">
+                <div>
+                  <label class="block font-mono text-xs text-zinc-500 mb-2">
+                    EMAIL
+                  </label>
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    autocomplete="email"
+                    class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 text-zinc-200 outline-none
+                           focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/10 transition"
+                    placeholder="tucorreo@ejemplo.com"
+                  />
+                </div>
+
+                <div>
+                  <label class="block font-mono text-xs text-zinc-500 mb-2">
+                    CONTRASEÑA
+                  </label>
+                  <input
+                    name="password"
+                    type="password"
+                    required
+                    minlength="8"
+                    autocomplete="current-password"
+                    class="w-full bg-zinc-950 border border-zinc-800 px-4 py-3 text-zinc-200 outline-none
+                           focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/10 transition"
+                    placeholder="••••••••"
+                  />
+
+                  <div class="mt-3 flex items-center justify-between">
+                    <a href="/forgot-password" class="font-mono text-[10px] text-zinc-500 hover:text-pink-200 transition">
+                      ¿Olvidaste tu contraseña?
+                    </a>
+                    <a href="/register" class="font-mono text-[10px] text-zinc-500 hover:text-zinc-200 transition">
+                      Crear cuenta →
+                    </a>
+                  </div>
+                </div>
+
+                <div id="errorBox" class="hidden border border-pink-500/20 bg-pink-500/5 px-4 py-3">
+                  <p class="font-mono text-xs text-pink-200">
+                    <span class="opacity-60">// ERROR:</span>
+                    <span id="errorText">No pudimos iniciar sesión</span>
+                  </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
+                  <button
+                    id="submitBtn"
+                    type="submit"
+                    class="relative overflow-hidden group border border-zinc-700 px-6 py-3"
+                  >
+                    <span class="absolute inset-0 w-0 bg-pink-600 transition-all duration-250 ease-out group-hover:w-full opacity-10"></span>
+                    <span class="relative font-serif text-xl text-white group-hover:tracking-widest transition-all duration-300">
+                      ENTRAR
+                    </span>
+                  </button>
+
+                  <a
+                    href="/"
+                    class="relative overflow-hidden group border border-white/10 bg-zinc-900/10 px-6 py-3"
+                  >
+                    <span class="absolute inset-0 w-0 bg-white transition-all duration-250 ease-out group-hover:w-full opacity-5"></span>
+                    <span class="relative font-mono text-xs text-zinc-300 group-hover:text-zinc-200 transition">
+                      SEGUIR COMPRANDO
+                    </span>
+                  </a>
+                </div>
+
+                <!-- <div class="pt-6 border-t border-white/10">
+                  <p class="font-mono text-[10px] text-zinc-400">
+                    Al iniciar sesión aceptas nuestros <a href="/terms" class="text-zinc-300 hover:text-pink-200 transition">Términos</a> y
+                    <a href="/privacy" class="text-zinc-300 hover:text-pink-200 transition">Política de Privacidad</a>.
+                  </p>
+                </div> -->
+              </div>
+            </form>
+
+            {/* bottom reassurance */}
+            <div class="relative border-t border-white/10 bg-zinc-950/70 px-6 py-4">
+              <p class="font-mono text-[10px] text-zinc-500">
+                Pagos y datos protegidos. Si necesitas soporte, visita <a class="text-zinc-300 hover:text-pink-200 transition" href="/contact">Soporte</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script is:inline define:vars={{ API_URL: API }}>
+      /** @type {HTMLFormElement | null} */
+      const form = document.getElementById("loginForm");
+
+      const statusText = document.getElementById("statusText");
+      const errorBox = document.getElementById("errorBox");
+      const errorText = document.getElementById("errorText");
+      const submitBtn = document.getElementById("submitBtn");
+
+      function setStatus(v) {
+        if (statusText) statusText.textContent = v;
+      }
+
+      function showError(msg) {
+        if (errorText) errorText.textContent = msg;
+        if (errorBox) errorBox.classList.remove("hidden");
+      }
+
+      function hideError() {
+        if (errorBox) errorBox.classList.add("hidden");
+      }
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideError();
+        setStatus("PROCESANDO");
+        submitBtn?.setAttribute("disabled", "true");
+
+        const fd = new FormData(form);
+        const email = String(fd.get("email") || "").trim();
+        const password = String(fd.get("password") || "");
+
+        try {
+          const r = await fetch(`${API_URL}/api/v1/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await r.json().catch(() => ({}));
+
+          if (!r.ok) {
+            showError(data?.error || "No pudimos iniciar sesión. Verifica tus datos.");
+            setStatus("ERROR");
+            return;
+          }
+
+          if (data?.accessToken) {
+            sessionStorage.setItem("accessToken", data.accessToken);
+          }
+
+          setStatus("OK");
+          location.href = "/";
+        } catch (err) {
+          console.error(err);
+          showError("No se pudo conectar. Intenta de nuevo.");
+          setStatus("ERROR");
+        } finally {
+          submitBtn?.removeAttribute("disabled");
+        }
+      });
+    </script>
+  </section>
+</BaseLayout>
