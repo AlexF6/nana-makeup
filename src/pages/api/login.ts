@@ -10,7 +10,6 @@ export const POST: APIRoute = async ({ request }) => {
   const r = await fetch(`${API_BASE}/api/v1/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    // Importante: Astro server -> API server
     body: JSON.stringify({ email, password }),
   });
 
@@ -21,15 +20,10 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  // 1) Reenviar la cookie refresh_token que te manda tu API
   const setCookie = r.headers.get("set-cookie");
 
-  // 2) Obtener el accessToken para guardarlo (opcional)
   const data = await r.json();
 
-  // Opción simple: guardar accessToken en cookie (NO httpOnly) o en session storage en el cliente.
-  // Mejor práctica: usarlo en memoria en el client y refrescar con /api/refresh cuando toque.
-  // Para empezar, puedes setearlo como cookie "access_token" (no ideal, pero funciona):
   const headers: Record<string, string> = {
     Location: "/",
   };
